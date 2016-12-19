@@ -1,6 +1,7 @@
 {
   "name": "evo",
   "version": "1.0.0",
+  "description": "Reactive, component-oriented view layer for modern web interfaces.",
   "main": "index.js",
   "repository": "https://github.com/ygm125/evo.git",
   "author": "guangming.ygm",
