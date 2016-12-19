@@ -5,10 +5,10 @@
 }(this, (function () { 'use strict';
 
 function Evo(options){
-    this.init(options);
+    this._init(options);
 }
 
-Evo.prototype.init = function(options){
+Evo.prototype._init = function(options){
     
 };
 
