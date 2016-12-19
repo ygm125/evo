@@ -1,0 +1,19 @@
+{
+  "name": "evo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ygm125/evo.git",
+  "author": "guangming.ygm",
+  "license": "MIT",
+  "scripts": {
+    "dev": "rollup -w -i ./src/evo.js -o ./dist/evo.js -f umd -n Evo",
+    "build": "rollup -i ./src/evo.js -o ./dist/evo.js -f umd -n Evo"
+  },
+  "dependencies": {
+    "snabbdom": "^0.5.4"
+  },
+  "devDependencies": {
+    "rollup": "^0.37.0",
+    "rollup-watch": "^2.5.0"
+  }
+}

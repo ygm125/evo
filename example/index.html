@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+        <a v-for="item in list" @click="popMsg(item.text)">{{item.text}}</a>
+    </div>
+    <script src="./dist/evo.js"></script>
+    <script>
+    var app = new Evo({
+        el: "#app",
+        data: {
+            message: "Hello Evo!",
+            list:[{
+                text : "Im one"
+            },{
+                text : "Im two"
+            }]
+        },
+        methods:{
+            popMsg(msg){
+                alert(msg)
+            }
+        }
+    })
+    </script>
+</body>
+</html>
