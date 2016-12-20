@@ -5,7 +5,7 @@ export function observe(value) {
     return new Observer(value)
 }
 
-export class Observer {
+class Observer {
     constructor(value) {
         if (Array.isArray(value)) {
             this.observeArray(value)
@@ -20,9 +20,15 @@ export class Observer {
             defineReactive(obj, keys[i], obj[keys[i]])
         }
     }
+
+    observeArray(items) {
+        for (let i = 0, l = items.length; i < l; i++) {
+            observe(items[i])
+        }
+    }
 }
 
-export function defineReactive(obj, key, val) {
+function defineReactive(obj, key, val) {
     const dep = new Dep()
     let childOb = observe(val)
     Object.defineProperty(obj, key, {
@@ -43,4 +49,29 @@ export function defineReactive(obj, key, val) {
             dep.notify()
         }
     })
+}
+
+class Dep {
+    constructor() {
+        this.id = uid++
+        this.subs = []
+    }
+
+    addSub(sub) {
+        this.subs.push(sub)
+    }
+
+    depend() {
+        if (Dep.target) {
+            Dep.target.addDep(this)
+        }
+    }
+
+    notify() {
+        // stablize the subscriber list first
+        const subs = this.subs.slice()
+        for (let i = 0, l = subs.length; i < l; i++) {
+            subs[i].update()
+        }
+    }
 }

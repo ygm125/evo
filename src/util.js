@@ -13,3 +13,24 @@ export function bind(fn, ctx) {
 }
 
 export function noop() { }
+
+export function query(el) {
+    if (typeof el === 'string') {
+        const selector = el
+        el = document.querySelector(el)
+        if (!el) {
+            return document.createElement('div')
+        }
+    }
+    return el
+}
+
+export function getOuterHTML(el) {
+    if (el.outerHTML) {
+        return el.outerHTML
+    } else {
+        const container = document.createElement('div')
+        container.appendChild(el.cloneNode(true))
+        return container.innerHTML
+    }
+}

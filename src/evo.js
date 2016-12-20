@@ -1,10 +1,11 @@
-import { bind, noop } from './util'
+import { bind, noop, query, getOuterHTML } from './util'
+import { observe, Watcher } from './observer'
 
 function Evo(options) {
     this._init(options)
 }
 
-Evo.prototype._init = function (options) {
+Evo.prototype._init = (options) => {
     let vm = this
     vm.$options = options
 
@@ -19,12 +20,44 @@ Evo.prototype._init = function (options) {
     }
 
     callHook(vm, 'created')
+
+    initRender(vm)
+}
+
+Vue.prototype.$mount = (el) => {
+    let vm = this
+    el = el && query(el)
+    if (!options.render) {
+        let template = options.template
+        if (template) {
+        } else if (el) {
+            template = getOuterHTML(el)
+        }
+        if (template) {
+            const { render } = compileToFunctions(template, vm)
+            options.render = render
+        }
+    }
+
+    callHook(vm, 'beforeMount')
+
+    vm._watcher = new Watcher(vm, () => {
+        vm._update(vm._render())
+    })
+
+    callHook(vm, 'mounted')
+
+    return vm
 }
 
 function initMethods(vm, methods) {
     for (const key in methods) {
         vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
     }
+}
+
+function initRender(vm) {
+    vm.$mount(vm.$options.el)
 }
 
 function initData(vm) {
