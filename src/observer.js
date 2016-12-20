@@ -5,6 +5,22 @@ export function observe(value) {
     return new Observer(value)
 }
 
+export class Watcher {
+    constructor(vm, expOrFn) {
+        this.vm = vm
+        vm._watchers.push(this)
+        this.getter = expOrFn
+        this.value = this.get()
+    }
+
+    get() {
+        pushTarget(this)
+        const value = this.getter.call(this.vm, this.vm)
+        popTarget()
+        return value
+    }
+}
+
 class Observer {
     constructor(value) {
         if (Array.isArray(value)) {
@@ -74,4 +90,16 @@ class Dep {
             subs[i].update()
         }
     }
+}
+
+Dep.target = null
+const targetStack = []
+
+function pushTarget(_target) {
+    if (Dep.target) targetStack.push(Dep.target)
+    Dep.target = _target
+}
+
+function popTarget() {
+    Dep.target = targetStack.pop()
 }

@@ -14,6 +14,10 @@ export function bind(fn, ctx) {
 
 export function noop() { }
 
+export function warn(msg) {
+    console.error(`[Evo warn]: ${msg} `)
+}
+
 export function query(el) {
     if (typeof el === 'string') {
         const selector = el

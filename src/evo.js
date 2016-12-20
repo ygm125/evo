@@ -1,4 +1,4 @@
-import { bind, noop, query, getOuterHTML } from './util'
+import { bind, noop, warn, query, getOuterHTML } from './util'
 import { observe, Watcher } from './observer'
 
 function Evo(options) {
@@ -8,6 +8,8 @@ function Evo(options) {
 Evo.prototype._init = (options) => {
     let vm = this
     vm.$options = options
+
+    vm._watchers = []
 
     callHook(vm, 'beforeCreate')
 
@@ -48,6 +50,37 @@ Vue.prototype.$mount = (el) => {
     callHook(vm, 'mounted')
 
     return vm
+}
+
+Vue.prototype._render = () => {
+    let vm = this
+    let render = vm.$options.render
+    let vnode
+    try {
+        vnode = render.call(vm)
+    } catch (e) {
+        warn(e)
+    }
+    return vnode
+}
+
+Vue.prototype._update = (vnode) => {
+    let vm = this
+    if (vm._isMounted) {
+        callHook(vm, 'beforeUpdate')
+    }
+    const prevVnode = vm._vnode
+    vm._vnode = vnode
+
+    if (!prevVnode) {
+        vm.$el = vm.__patch__(vm.$el, vnode)
+    } else {
+        vm.$el = vm.__patch__(prevVnode, vnode)
+    }
+
+    if (vm._isMounted) {
+        callHook(vm, 'updated')
+    }
 }
 
 function initMethods(vm, methods) {
