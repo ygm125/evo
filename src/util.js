@@ -18,6 +18,10 @@ export function warn(msg) {
     console.error(`[Evo warn]: ${msg} `)
 }
 
+export function isObject(obj) {
+    return obj !== null && typeof obj === 'object'
+}
+
 export function query(el) {
     if (typeof el === 'string') {
         const selector = el
@@ -38,3 +42,17 @@ export function getOuterHTML(el) {
         return container.innerHTML
     }
 }
+
+
+export function cached(fn) {
+    const cache = Object.create(null)
+    return function cachedFn(str) {
+        const hit = cache[str]
+        return hit || (cache[str] = fn(str))
+    }
+}
+
+const camelizeRE = /-(\w)/g
+export const camelize = cached((str) => {
+    return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : '')
+})

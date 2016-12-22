@@ -1,5 +1,6 @@
 import { bind, noop, warn, query, getOuterHTML } from './util'
 import { observe, Watcher } from './observer'
+import { compileToFunctions } from './parser/index'
 
 export default class Evo {
     constructor(options) {
@@ -9,11 +10,12 @@ export default class Evo {
 
         callHook(vm, 'beforeCreate')
 
-        if (options.methods) {
-            initMethods(vm, options.methods)
-        }
         if (options.data) {
             initData(vm)
+        }
+
+        if (options.methods) {
+            initMethods(vm, options.methods)
         }
 
         callHook(vm, 'created')
@@ -23,6 +25,7 @@ export default class Evo {
 
     $mount(el) {
         let vm = this
+        let options = vm.$options
         el = el && query(el)
         if (!options.render) {
             let template = options.template
@@ -35,6 +38,9 @@ export default class Evo {
                 options.render = render
             }
         }
+
+
+        return
 
         callHook(vm, 'beforeMount')
 

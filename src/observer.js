@@ -1,3 +1,5 @@
+import { isObject } from './util'
+
 export function observe(value) {
     if (!isObject(value)) {
         return
@@ -69,7 +71,6 @@ function defineReactive(obj, key, val) {
 
 class Dep {
     constructor() {
-        this.id = uid++
         this.subs = []
     }
 
