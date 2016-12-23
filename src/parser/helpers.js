@@ -62,7 +62,7 @@ export function addHandler(el, name, value, modifiers, important) {
         delete modifiers.native
         events = el.nativeEvents || (el.nativeEvents = {})
     } else {
-        events = el.on || (el.on = {})
+        events = el.events || (el.events = {})
     }
     const newHandler = { value, modifiers }
     const handlers = events[name]
