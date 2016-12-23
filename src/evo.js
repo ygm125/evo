@@ -2,7 +2,24 @@ import { bind, noop, warn, query, getOuterHTML } from './util'
 import { observe, Watcher } from './observer'
 import { compileToFunctions } from './parser/index'
 
+import snabbdom from 'snabbdom'
+import _class from 'snabbdom/modules/class'
+import _props from 'snabbdom/modules/props'
+import _style from 'snabbdom/modules/style'
+import _eventlisteners from 'snabbdom/modules/eventlisteners'
+import _h from 'snabbdom/h'
+
+const _patch = snabbdom.init([
+    _class,
+    _props,
+    _style,
+    _eventlisteners
+])
+
 export default class Evo {
+    _h = _h
+    _patch = _patch
+    
     constructor(options) {
         let vm = this
         vm.$options = options
