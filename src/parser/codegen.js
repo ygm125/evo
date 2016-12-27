@@ -25,7 +25,7 @@ const keyCodes = {
 
 export default function codeGen(ast) {
 
-    const code = ast ? genElement(ast) : '_c("div")'
+    const code = ast ? genElement(ast) : '_h("div")'
 
     return makeFunction(`with(this){return ${code}}`)
 }
@@ -39,7 +39,7 @@ function genElement(el) {
         let code
         const data = genData(el)
         const children = genChildren(el, true)
-        code = `_c('${el.tag}'${
+        code = `_h('${el.tag}'${
             data ? `,${data}` : '' // data
             }${
             children ? `,${children}` : '' // children
@@ -75,10 +75,7 @@ function genNode(node) {
 }
 
 function genText(text) {
-    return `_v(${text.type === 2
-        ? text.expression // no need for () because already wrapped in _s()
-        : JSON.stringify(text.text)
-        })`
+    return text.type === 2 ? text.expression : JSON.stringify(text.text)
 }
 
 function genData(el) {

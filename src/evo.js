@@ -16,7 +16,7 @@ const _patch = snabbdom.init([
     _eventlisteners
 ])
 
-export default class Evo {
+export class Evo {
     _h = _h
     _patch = _patch
     
@@ -56,9 +56,6 @@ export default class Evo {
             }
         }
 
-
-        return
-
         callHook(vm, 'beforeMount')
 
         vm._watcher = new Watcher(vm, () => {
@@ -91,9 +88,9 @@ export default class Evo {
         vm._vnode = vnode
 
         if (!prevVnode) {
-            vm.$el = vm.__patch__(vm.$el, vnode)
+            vm.$el = vm._patch(vm.$el, vnode)
         } else {
-            vm.$el = vm.__patch__(prevVnode, vnode)
+            vm.$el = vm._patch(prevVnode, vnode)
         }
 
         if (vm._isMounted) {

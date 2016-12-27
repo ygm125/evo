@@ -3,7 +3,8 @@ const webpack = require('webpack')
 let config = {
     entry: './src/evo.js',
     output: {
-        path: './dist'
+        path: './dist',
+        libraryTarget : 'this'
     },
     module: {
         rules: [
