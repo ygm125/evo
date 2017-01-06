@@ -56,3 +56,8 @@ const camelizeRE = /-(\w)/g
 export const camelize = cached((str) => {
     return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : '')
 })
+
+export const idToTemplate = cached((id) => {
+    var el = query(id)
+    return el && el.innerHTML
+})

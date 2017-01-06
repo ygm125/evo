@@ -64,6 +64,7 @@ export function compileToFunctions(template, vm) {
         },
         chars: function (text) {
             text = text.trim()
+            // TODO text 空白处理
             if(!text) return
             
             let expression = TextParser(text, options.delimiters)
@@ -130,7 +131,7 @@ function processIf(el) {
 }
 
 function processKey(el) {
-    // TODO
+    // TODO key 优化处理
 }
 
 function processAttrs(el) {

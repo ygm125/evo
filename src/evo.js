@@ -1,4 +1,4 @@
-import { bind, noop, warn, query, getOuterHTML } from './util'
+import { bind, noop, warn, query, getOuterHTML, idToTemplate } from './util'
 import { observe, Watcher } from './observer'
 import { compileToFunctions } from './parser/index'
 
@@ -19,9 +19,10 @@ const _patch = snabbdom.init([
 export class Evo {
     _h = _h
     _patch = _patch
-    
+
     constructor(options) {
         let vm = this
+
         vm.$options = options
         vm._watchers = []
 
@@ -37,7 +38,7 @@ export class Evo {
 
         callHook(vm, 'created')
 
-        initRender(vm)
+        vm.$mount(vm.$options.el)
     }
 
     $mount(el) {
@@ -47,6 +48,13 @@ export class Evo {
         if (!options.render) {
             let template = options.template
             if (template) {
+                if (typeof template === 'string') {
+                    if (template[0] === '#') {
+                        template = idToTemplate(template)
+                    }
+                } else if (template.nodeType) {
+                    template = template.innerHTML;
+                }
             } else if (el) {
                 template = getOuterHTML(el)
             }
@@ -103,10 +111,6 @@ function initMethods(vm, methods) {
     for (const key in methods) {
         vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
     }
-}
-
-function initRender(vm) {
-    vm.$mount(vm.$options.el)
 }
 
 function initData(vm) {
