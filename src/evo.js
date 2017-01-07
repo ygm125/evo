@@ -1,4 +1,4 @@
-import { bind, noop, warn, query, getOuterHTML, idToTemplate } from './util'
+import { bind, noop, warn, query, getOuterHTML, idToTemplate, _toString, isObject } from './util'
 import { observe, Watcher } from './observer'
 import { compileToFunctions } from './parser/index'
 
@@ -17,9 +17,6 @@ const _patch = snabbdom.init([
 ])
 
 export class Evo {
-    _h = _h
-    _patch = _patch
-
     constructor(options) {
         let vm = this
 
@@ -59,16 +56,16 @@ export class Evo {
                 template = getOuterHTML(el)
             }
             if (template) {
-                const { render } = compileToFunctions(template, vm)
+                const render = compileToFunctions(template, vm)
                 options.render = render
             }
         }
 
         callHook(vm, 'beforeMount')
 
-        vm._watcher = new Watcher(vm, () => {
+        // vm._watcher = new Watcher(vm, () => {
             vm._update(vm._render())
-        })
+        // })
 
         callHook(vm, 'mounted')
 
@@ -84,6 +81,7 @@ export class Evo {
         } catch (e) {
             warn(e)
         }
+        
         return vnode
     }
 
@@ -104,6 +102,35 @@ export class Evo {
         if (vm._isMounted) {
             callHook(vm, 'updated')
         }
+    }
+
+    _h = _h
+    _patch = _patch
+    _s = _toString
+
+    _e() { return '' }
+
+    _l(val, render) {
+        let ret, i, l, keys, key
+        if (Array.isArray(val) || typeof val === 'string') {
+            ret = new Array(val.length)
+            for (i = 0, l = val.length; i < l; i++) {
+                ret[i] = render(val[i], i)
+            }
+        } else if (typeof val === 'number') {
+            ret = new Array(val)
+            for (i = 0; i < val; i++) {
+                ret[i] = render(i + 1, i)
+            }
+        } else if (isObject(val)) {
+            keys = Object.keys(val)
+            ret = new Array(keys.length)
+            for (i = 0, l = keys.length; i < l; i++) {
+                key = keys[i]
+                ret[i] = render(val[key], key, i)
+            }
+        }
+        return ret
     }
 }
 

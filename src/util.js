@@ -61,3 +61,11 @@ export const idToTemplate = cached((id) => {
     var el = query(id)
     return el && el.innerHTML
 })
+
+export function _toString(val) {
+    return val == null
+        ? ''
+        : typeof val === 'object'
+            ? JSON.stringify(val, null, 2)
+            : String(val)
+}

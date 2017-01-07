@@ -1,3 +1,5 @@
+import { noop } from '../util'
+
 export const dirRE = /^v-|^@|^:/
 export const forAliasRE = /(.*?)\s+(?:in|of)\s+(.*)/
 export const forIteratorRE = /\((\{[^}]*\}|[^,]*),([^,]*)(?:,([^,]*))?\)/
@@ -105,3 +107,5 @@ export function makeFunction (code) {
     return noop
   }
 }
+
+

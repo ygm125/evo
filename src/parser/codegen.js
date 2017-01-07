@@ -11,6 +11,7 @@ const modifierCode = {
     alt: 'if(!$event.altKey)return;',
     meta: 'if(!$event.metaKey)return;'
 }
+
 const keyCodes = {
     esc: 27,
     tab: 9,
@@ -31,9 +32,9 @@ export default function codeGen(ast) {
 }
 
 function genElement(el) {
-    if (el.for) {
+    if (el.for && !el.forProcessed) {
         return genFor(el)
-    } else if (el.if) {
+    } else if (el.if && !el.ifProcessed) {
         return genIf(el)
     } else {
         let code
@@ -43,7 +44,7 @@ function genElement(el) {
             data ? `,${data}` : '' // data
             }${
             children ? `,${children}` : '' // children
-            }`
+            })`
         return code
     }
 }
@@ -66,16 +67,40 @@ function genChildren(el, checkSkip) {
     }
 }
 
-function genFor (el: any): string {
-  const exp = el.for
-  const alias = el.alias
-  const iterator1 = el.iterator1 ? `,${el.iterator1}` : ''
-  const iterator2 = el.iterator2 ? `,${el.iterator2}` : ''
-  el.forProcessed = true // avoid recursion
-  return `_l((${exp}),` +
-    `function(${alias}${iterator1}${iterator2}){` +
-      `return ${genElement(el)}` +
-    '})'
+function genIf(el) {
+    el.ifProcessed = true // avoid recursion
+    return genIfConditions(el.ifConditions.slice())
+}
+
+function genIfConditions(conditions) {
+    if (!conditions.length) {
+        return '_e()'
+    }
+
+    var condition = conditions.shift()
+    if (condition.exp) {
+        return `(${condition.exp})?${genTernaryExp(condition.block)}:${genIfConditions(conditions)}`
+    } else {
+        return `${genTernaryExp(condition.block)}`
+    }
+
+    // v-if with v-once should generate code like (a)?_m(0):_m(1)
+    function genTernaryExp(el) {
+        return genElement(el)
+    }
+}
+
+function genFor(el) {
+    const exp = el.for
+    const alias = el.alias
+    const iterator1 = el.iterator1 ? `,${el.iterator1}` : ''
+    const iterator2 = el.iterator2 ? `,${el.iterator2}` : ''
+    el.forProcessed = true // avoid recursion
+
+    return `_l((${exp}),` +
+        `function(${alias}${iterator1}${iterator2}){` +
+        `return ${genElement(el)}` +
+        '})'
 }
 
 function genNode(node) {
