@@ -5,6 +5,7 @@ import { compileToFunctions } from './parser/index'
 import snabbdom from 'snabbdom'
 import _class from 'snabbdom/modules/class'
 import _props from 'snabbdom/modules/props'
+import _attributes from 'snabbdom/modules/attributes'
 import _style from 'snabbdom/modules/style'
 import _eventlisteners from 'snabbdom/modules/eventlisteners'
 import _h from 'snabbdom/h'
@@ -12,6 +13,7 @@ import _h from 'snabbdom/h'
 const _patch = snabbdom.init([
     _class,
     _props,
+    _attributes,
     _style,
     _eventlisteners
 ])
@@ -41,7 +43,7 @@ export class Evo {
     $mount(el) {
         let vm = this
         let options = vm.$options
-        el = el && query(el)
+        vm.$el = el = el && query(el)
         if (!options.render) {
             let template = options.template
             if (template) {
@@ -64,7 +66,7 @@ export class Evo {
         callHook(vm, 'beforeMount')
 
         // vm._watcher = new Watcher(vm, () => {
-            vm._update(vm._render())
+        vm._update(vm._render())
         // })
 
         callHook(vm, 'mounted')
@@ -81,7 +83,7 @@ export class Evo {
         } catch (e) {
             warn(e)
         }
-        
+
         return vnode
     }
 
@@ -104,11 +106,31 @@ export class Evo {
         }
     }
 
-    _h = _h
     _patch = _patch
     _s = _toString
 
     _e() { return '' }
+
+    _h(sel, data, children) {
+        let faltChildren = []
+
+        if (Array.isArray(data)) {
+            children = data
+            data = null
+        }
+
+        if (Array.isArray(children)) {
+            children.forEach((item) => {
+                if (Array.isArray(item)) {
+                    faltChildren = faltChildren.concat(item)
+                } else {
+                    faltChildren.push(item)
+                }
+            })
+        }
+
+        return _h(sel, data, faltChildren.length ? faltChildren : children)
+    }
 
     _l(val, render) {
         let ret, i, l, keys, key
