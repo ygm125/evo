@@ -5,7 +5,7 @@ import { compileToFunctions } from './parser/index'
 import snabbdom from 'snabbdom'
 import _class from 'snabbdom/modules/class'
 import _props from 'snabbdom/modules/props'
-import _attributes from 'snabbdom/modules/attributes'
+import _attrs from 'snabbdom/modules/attributes'
 import _style from 'snabbdom/modules/style'
 import _eventlisteners from 'snabbdom/modules/eventlisteners'
 import _h from 'snabbdom/h'
@@ -13,7 +13,7 @@ import _h from 'snabbdom/h'
 const _patch = snabbdom.init([
     _class,
     _props,
-    _attributes,
+    _attrs,
     _style,
     _eventlisteners
 ])
