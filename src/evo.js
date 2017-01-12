@@ -108,9 +108,7 @@ export class Evo {
 
     _patch = _patch
     _s = _toString
-
-    _e() { return '' }
-
+    
     _h(sel, data, children) {
         let faltChildren = []
 
