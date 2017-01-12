@@ -60,13 +60,13 @@ export function compileToFunctions(template, vm) {
             }
         },
         end: function (tag) {
-
+            
         },
         chars: function (text) {
+            //TODO
             text = text.trim()
-            // TODO text 空白处理
             if(!text) return
-            
+
             let expression = TextParser(text, options.delimiters)
             if (expression) {
                 currentParent.children.push({

@@ -1,4 +1,4 @@
-import { noop } from '../util'
+import { noop, warn } from '../util'
 
 export const dirRE = /^v-|^@|^:/
 export const forAliasRE = /(.*?)\s+(?:in|of)\s+(.*)/
@@ -8,10 +8,10 @@ export const bindRE = /^:|^v-bind:/
 export const modifierRE = /\.[^.]+/g
 
 export function addIfCondition(el, condition) {
-    if (!el.conditions) {
-        el.conditions = []
+    if (!el.ifConditions) {
+        el.ifConditions = []
     }
-    el.conditions.push(condition)
+    el.ifConditions.push(condition)
 }
 
 export function parseModifiers(name) {
@@ -59,6 +59,10 @@ export function addHandler(el, name, value, modifiers, important) {
         delete modifiers.capture
         name = '!' + name // mark the event as captured
     }
+    if (modifiers && modifiers.once) {
+        delete modifiers.once;
+        name = '~' + name; // mark the event as once
+    }
     let events
     if (modifiers && modifiers.native) {
         delete modifiers.native
@@ -100,12 +104,12 @@ export function processIfConditions(el, parent) {
     }
 }
 
-export function makeFunction (code) {
-  try {
-    return new Function(code)
-  } catch (e) {
-    return noop
-  }
+export function makeFunction(code) {
+    try {
+        return new Function(code)
+    } catch (e) {
+        return noop
+    }
 }
 
 
