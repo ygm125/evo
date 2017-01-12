@@ -70,6 +70,7 @@ export class Evo {
         // })
 
         callHook(vm, 'mounted')
+        vm._isMounted = true
 
         return vm
     }
