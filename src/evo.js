@@ -108,7 +108,16 @@ export class Evo {
 
     _patch = _patch
     _s = _toString
-    
+
+    _k(eventKeyCode, key, builtInAlias) {
+        const keyCodes = builtInAlias
+        if (Array.isArray(keyCodes)) {
+            return keyCodes.indexOf(eventKeyCode) === -1
+        } else {
+            return keyCodes !== eventKeyCode
+        }
+    }
+
     _h(sel, data, children) {
         let faltChildren = []
 
