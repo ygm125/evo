@@ -23,6 +23,7 @@ export function compileToFunctions(template, vm) {
     let root
     let currentParent
     let options = vm.$options
+    let stack = []
 
     HTMLParser(template, {
         start: function (tag, attrs, unary) {
@@ -57,15 +58,23 @@ export function compileToFunctions(template, vm) {
 
             if (!unary) {
                 currentParent = element
+                stack.push(element)
             }
         },
         end: function (tag) {
-            
+            const element = stack[stack.length - 1]
+            const lastNode = element.children[element.children.length - 1]
+            if (lastNode && lastNode.type === 3 && lastNode.text === ' ') {
+                element.children.pop()
+            }
+            // pop stack
+            stack.length -= 1
+            currentParent = stack[stack.length - 1]
         },
         chars: function (text) {
-            //TODO
-            text = text.trim()
-            if(!text) return
+            if(!text.trim()){
+                text = ' '
+            }
 
             let expression = TextParser(text, options.delimiters)
             if (expression) {
@@ -84,7 +93,7 @@ export function compileToFunctions(template, vm) {
         },
         comment: function (text) { }
     })
-
+    
     return codeGen(root)
 }
 
