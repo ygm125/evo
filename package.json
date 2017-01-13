@@ -11,6 +11,7 @@
     "build": "NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@nx-js/observer-util": "^1.0.0",
     "snabbdom": "^0.5.4"
   },
   "devDependencies": {

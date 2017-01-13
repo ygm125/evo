@@ -1,5 +1,4 @@
 import { bind, noop, warn, query, getOuterHTML, idToTemplate, _toString, isObject, resolveAsset } from './util'
-import { observe, Watcher } from './observer'
 import { compileToFunctions } from './parser/index'
 
 import snabbdom from 'snabbdom'
@@ -23,7 +22,6 @@ export class Evo {
         let vm = this
 
         vm.$options = options
-        vm._watchers = []
 
         callHook(vm, 'beforeCreate')
 
@@ -65,9 +63,7 @@ export class Evo {
 
         callHook(vm, 'beforeMount')
 
-        // vm._watcher = new Watcher(vm, () => {
         vm._update(vm._render())
-        // })
 
         callHook(vm, 'mounted')
         vm._isMounted = true
@@ -191,7 +187,6 @@ function initData(vm) {
     while (i--) {
         proxy(vm, keys[i])
     }
-    observe(data)
 }
 
 function proxy(vm, key) {
