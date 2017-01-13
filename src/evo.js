@@ -1,4 +1,4 @@
-import { bind, noop, warn, query, getOuterHTML, idToTemplate, _toString, isObject } from './util'
+import { bind, noop, warn, query, getOuterHTML, idToTemplate, _toString, isObject, resolveAsset } from './util'
 import { observe, Watcher } from './observer'
 import { compileToFunctions } from './parser/index'
 
@@ -107,6 +107,10 @@ export class Evo {
         }
     }
 
+    _createComponent() {
+
+    }
+
     _patch = _patch
     _s = _toString
 
@@ -120,6 +124,16 @@ export class Evo {
     }
 
     _h(sel, data, children) {
+        let vm = this
+
+        // TODO
+        if (typeof sel == 'string' && 0) {
+            let Ctor = resolveAsset(vm.$options, 'components', sel)
+            if (Ctor) {
+                return vm._createComponent(Ctor, data, children, sel)
+            }
+        }
+
         let faltChildren = []
 
         if (Array.isArray(data)) {
