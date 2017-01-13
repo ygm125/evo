@@ -1,6 +1,6 @@
 import { bind, noop, warn, query, getOuterHTML, idToTemplate, _toString, isObject, resolveAsset } from './util'
 import { compileToFunctions } from './parser/index'
-
+import observer from '@nx-js/observer-util'
 import snabbdom from 'snabbdom'
 import _class from 'snabbdom/modules/class'
 import _props from 'snabbdom/modules/props'
@@ -29,8 +29,11 @@ export class Evo {
             initData(vm)
         }
 
-        if (options.methods) {
-            initMethods(vm, options.methods)
+        let methods = options.methods
+        if (methods) {
+            for (const key in methods) {
+                vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
+            }
         }
 
         callHook(vm, 'created')
@@ -63,9 +66,12 @@ export class Evo {
 
         callHook(vm, 'beforeMount')
 
-        vm._update(vm._render())
+        observer.observe(() =>{
+            vm._update(vm._render())
+        })
 
         callHook(vm, 'mounted')
+
         vm._isMounted = true
 
         return vm
@@ -174,14 +180,20 @@ export class Evo {
     }
 }
 
-function initMethods(vm, methods) {
-    for (const key in methods) {
-        vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
+function callHook(vm, hook) {
+    const handlers = vm.$options[hook]
+    if (handlers) {
+        for (let i = 0, j = handlers.length; i < j; i++) {
+            handlers[i].call(vm)
+        }
     }
 }
 
 function initData(vm) {
-    let data = vm._data = vm.$options.data
+    let data = vm.$options.data
+
+    vm.$data = observer.observable(data)
+
     const keys = Object.keys(data)
     let i = keys.length
     while (i--) {
@@ -194,19 +206,10 @@ function proxy(vm, key) {
         configurable: true,
         enumerable: true,
         get: function proxyGetter() {
-            return vm._data[key]
+            return vm.$data[key]
         },
         set: function proxySetter(val) {
-            vm._data[key] = val
+            vm.$data[key] = val
         }
     })
-}
-
-function callHook(vm, hook) {
-    const handlers = vm.$options[hook]
-    if (handlers) {
-        for (let i = 0, j = handlers.length; i < j; i++) {
-            handlers[i].call(vm)
-        }
-    }
 }

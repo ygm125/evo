@@ -7,7 +7,7 @@
     <div id="app">
         {{ message }}
 
-        <a :me="me" v-for="item in list" @click="popMsg(item.text)">{{item.text}}</a>
+        <a :me="me.age" v-for="item in list" @click="popMsg(item.text)">{{item.text}}</a>
 
         <div v-if="false">222</div>
         
@@ -18,7 +18,9 @@
     var app = new Evo({
         el: "#app",
         data: {
-            me:'11',
+            me:{
+                age : 18
+            },
             message: "Hello Evo!",
             list:[{
                 text : "Im one"
