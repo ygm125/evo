@@ -26,14 +26,11 @@ export class Evo {
         callHook(vm, 'beforeCreate')
 
         if (options.data) {
-            initData(vm)
+            initData(vm, options.data)
         }
 
-        let methods = options.methods
-        if (methods) {
-            for (const key in methods) {
-                vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
-            }
+        if (options.methods) {
+            initMethods(vm, options.methods)
         }
 
         callHook(vm, 'created')
@@ -66,7 +63,7 @@ export class Evo {
 
         callHook(vm, 'beforeMount')
 
-        observer.observe(() =>{
+        observer.observe(() => {
             vm._update(vm._render())
         })
 
@@ -189,9 +186,7 @@ function callHook(vm, hook) {
     }
 }
 
-function initData(vm) {
-    let data = vm.$options.data
-
+function initData(vm, data) {
     vm.$data = observer.observable(data)
 
     const keys = Object.keys(data)
@@ -212,4 +207,10 @@ function proxy(vm, key) {
             vm.$data[key] = val
         }
     })
+}
+
+function initMethods(vm, methods) {
+    for (const key in methods) {
+        vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
+    }
 }
