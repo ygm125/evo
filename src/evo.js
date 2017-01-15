@@ -96,6 +96,7 @@ export class Evo {
         vm._vnode = vnode
 
         if (!prevVnode) {
+            console.log(vnode)
             vm.$el = vm._patch(vm.$el, vnode)
         } else {
             vm.$el = vm._patch(prevVnode, vnode)
@@ -106,8 +107,11 @@ export class Evo {
         }
     }
 
-    _createComponent() {
-
+    _createComponent(Ctor, data, children, sel) {
+        Ctor._component = true
+        Ctor.el = '#app'
+        let Factory = this.constructor
+        return new Factory(Ctor)
     }
 
     _patch = _patch
@@ -125,8 +129,7 @@ export class Evo {
     _h(sel, data, children) {
         let vm = this
 
-        // TODO
-        if (typeof sel == 'string' && 0) {
+        if (typeof sel == 'string') {
             let Ctor = resolveAsset(vm.$options, 'components', sel)
             if (Ctor) {
                 return vm._createComponent(Ctor, data, children, sel)

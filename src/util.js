@@ -85,6 +85,9 @@ export function resolveAsset(options, type, id) {
         return
     }
     let assets = options[type]
+    if(!assets){
+        return
+    }
     // check local registration variations first
     if (hasOwn(assets, id)) { return assets[id] }
     var camelizedId = camelize(id)

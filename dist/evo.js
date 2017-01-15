@@ -166,6 +166,9 @@ function resolveAsset(options, type, id) {
         return;
     }
     var assets = options[type];
+    if (!assets) {
+        return;
+    }
     // check local registration variations first
     if (hasOwn(assets, id)) {
         return assets[id];
@@ -2227,6 +2230,7 @@ var Evo = function () {
             vm._vnode = vnode;
 
             if (!prevVnode) {
+                console.log(vnode);
                 vm.$el = vm._patch(vm.$el, vnode);
             } else {
                 vm.$el = vm._patch(prevVnode, vnode);
@@ -2238,7 +2242,12 @@ var Evo = function () {
         }
     }, {
         key: '_createComponent',
-        value: function _createComponent() {}
+        value: function _createComponent(Ctor, data, children, sel) {
+            Ctor._component = true;
+            Ctor.el = '#app';
+            var Factory = this.constructor;
+            return new Factory(Ctor);
+        }
     }, {
         key: '_k',
         value: function _k(eventKeyCode, key, builtInAlias) {
@@ -2254,8 +2263,7 @@ var Evo = function () {
         value: function _h(sel, data, children) {
             var vm = this;
 
-            // TODO
-            if (typeof sel == 'string' && 0) {
+            if (typeof sel == 'string') {
                 var Ctor = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["f" /* resolveAsset */])(vm.$options, 'components', sel);
                 if (Ctor) {
                     return vm._createComponent(Ctor, data, children, sel);
