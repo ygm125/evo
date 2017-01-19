@@ -185,6 +185,17 @@ function resolveAsset(options, type, id) {
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+module.exports = function(sel, data, children, text, elm) {
+  var key = data === undefined ? undefined : data.key;
+  return {sel: sel, data: data, children: children,
+          text: text, elm: elm, key: key};
+};
+
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -326,23 +337,12 @@ function makeFunction(code) {
 }
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
 
 module.exports = {
   array: Array.isArray,
   primitive: function(s) { return typeof s === 'string' || typeof s === 'number'; },
-};
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-module.exports = function(sel, data, children, text, elm) {
-  var key = data === undefined ? undefined : data.key;
-  return {sel: sel, data: data, children: children,
-          text: text, elm: elm, key: key};
 };
 
 
@@ -365,7 +365,7 @@ module.exports = __webpack_require__(19)
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__text_parser__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__codegen__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers__ = __webpack_require__(2);
 /* harmony export (immutable) */ exports["a"] = compileToFunctions;
 
 
@@ -550,8 +550,8 @@ function processAttrs(el) {
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-var VNode = __webpack_require__(3);
-var is = __webpack_require__(2);
+var VNode = __webpack_require__(1);
+var is = __webpack_require__(3);
 
 function addNS(data, children, sel) {
   data.ns = 'http://www.w3.org/2000/svg';
@@ -892,8 +892,8 @@ module.exports = {create: updateStyle, update: updateStyle, destroy: applyDestro
 /* global require, module, document, Node */
 
 
-var VNode = __webpack_require__(3);
-var is = __webpack_require__(2);
+var VNode = __webpack_require__(1);
+var is = __webpack_require__(3);
 var domApi = __webpack_require__(24);
 
 function isUndef(s) { return s === undefined; }
@@ -935,7 +935,7 @@ function init(modules, api) {
   }
 
   function createRmCb(childElm, listeners) {
-    return function() {
+    return function () {
       if (--listeners === 0) {
         var parent = api.parentNode(childElm);
         api.removeChild(parent, childElm);
@@ -960,7 +960,7 @@ function init(modules, api) {
       var dot = dotIdx > 0 ? dotIdx : sel.length;
       var tag = hashIdx !== -1 || dotIdx !== -1 ? sel.slice(0, Math.min(hash, dot)) : sel;
       elm = vnode.elm = isDef(data) && isDef(i = data.ns) ? api.createElementNS(i, tag)
-                                                          : api.createElement(tag);
+        : api.createElement(tag);
       if (hash < dot) elm.id = sel.slice(hash + 1, dot);
       if (dotIdx > 0) elm.className = sel.slice(dot + 1).replace(/\./g, ' ');
       if (is.array(children)) {
@@ -1071,7 +1071,7 @@ function init(modules, api) {
       }
     }
     if (oldStartIdx > oldEndIdx) {
-      before = isUndef(newCh[newEndIdx+1]) ? null : newCh[newEndIdx+1].elm;
+      before = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
       addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
     } else if (newStartIdx > newEndIdx) {
       removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
@@ -1116,7 +1116,7 @@ function init(modules, api) {
     }
   }
 
-  return function(oldVnode, vnode) {
+  return function (oldVnode, vnode) {
     var i, elm, parent;
     var insertedVnodeQueue = [];
     for (i = 0; i < cbs.pre.length; ++i) cbs.pre[i]();
@@ -1147,7 +1147,7 @@ function init(modules, api) {
   };
 }
 
-module.exports = {init: init};
+module.exports = { init: init };
 
 
 /***/ },
@@ -1640,7 +1640,7 @@ module.exports = wellKnowSymbols
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(2);
 /* harmony export (immutable) */ exports["a"] = codeGen;
 
 
@@ -2124,10 +2124,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_snabbdom_modules_eventlisteners___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_snabbdom_modules_eventlisteners__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_snabbdom_h__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_snabbdom_h___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_snabbdom_h__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_snabbdom_htmldomapi__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_snabbdom_htmldomapi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_snabbdom_htmldomapi__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_snabbdom_vnode__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_snabbdom_vnode___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_snabbdom_vnode__);
 /* harmony export (binding) */ __webpack_require__.d(exports, "Evo", function() { return Evo; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 
 
@@ -2174,6 +2180,7 @@ var Evo = function () {
             var vm = this;
             var options = vm.$options;
             vm.$el = el = el && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["b" /* query */])(el);
+
             if (!options.render) {
                 var template = options.template;
                 if (template) {
@@ -2226,11 +2233,10 @@ var Evo = function () {
             if (vm._isMounted) {
                 callHook(vm, 'beforeUpdate');
             }
-            var prevVnode = vm._vnode;
+            var prevVnode = vm._vnode || vm.$options._vnode;
             vm._vnode = vnode;
 
             if (!prevVnode) {
-                console.log(vnode);
                 vm.$el = vm._patch(vm.$el, vnode);
             } else {
                 vm.$el = vm._patch(prevVnode, vnode);
@@ -2243,10 +2249,13 @@ var Evo = function () {
     }, {
         key: '_createComponent',
         value: function _createComponent(Ctor, data, children, sel) {
-            Ctor._component = true;
-            Ctor.el = '#app';
+            Ctor._isComponent = true;
             var Factory = this.constructor;
-            return new Factory(Ctor);
+            data.hook = data.hook || {};
+            data.hook.init = function (vnode) {
+                new Factory(Ctor);
+            };
+            return Ctor._vnode = new __WEBPACK_IMPORTED_MODULE_11_snabbdom_vnode___default.a('vue-component-' + sel, data, children, undefined, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10_snabbdom_htmldomapi__["createElement"])(sel));
         }
     }, {
         key: '_k',

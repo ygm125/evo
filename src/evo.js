@@ -8,6 +8,8 @@ import _attrs from 'snabbdom/modules/attributes'
 import _style from 'snabbdom/modules/style'
 import _eventlisteners from 'snabbdom/modules/eventlisteners'
 import _h from 'snabbdom/h'
+import { createElement } from 'snabbdom/htmldomapi'
+import VNode from 'snabbdom/vnode'
 
 const _patch = snabbdom.init([
     _class,
@@ -42,6 +44,7 @@ export class Evo {
         let vm = this
         let options = vm.$options
         vm.$el = el = el && query(el)
+
         if (!options.render) {
             let template = options.template
             if (template) {
@@ -92,11 +95,10 @@ export class Evo {
         if (vm._isMounted) {
             callHook(vm, 'beforeUpdate')
         }
-        const prevVnode = vm._vnode
+        const prevVnode = vm._vnode || vm.$options._vnode
         vm._vnode = vnode
 
         if (!prevVnode) {
-            console.log(vnode)
             vm.$el = vm._patch(vm.$el, vnode)
         } else {
             vm.$el = vm._patch(prevVnode, vnode)
@@ -108,10 +110,13 @@ export class Evo {
     }
 
     _createComponent(Ctor, data, children, sel) {
-        Ctor._component = true
-        Ctor.el = '#app'
+        Ctor._isComponent = true
         let Factory = this.constructor
-        return new Factory(Ctor)
+        data.hook = data.hook || {}
+        data.hook.init = (vnode) => {
+            new Factory(Ctor)
+        }
+        return Ctor._vnode = new VNode(`vue-component-${sel}`, data, children, undefined, createElement(sel))
     }
 
     _patch = _patch
