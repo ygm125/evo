@@ -82,7 +82,7 @@ export class Evo {
         let render = vm.$options.render
         let vnode
         try {
-            vnode = render.call(vm)
+            vnode = render.call(vm, vm._h)
         } catch (e) {
             warn(e)
         }
@@ -115,7 +115,7 @@ export class Evo {
         data.hook = data.hook || {}
         data.hook.init = (vnode) => {
             Ctor.data = Ctor.data || {}
-            for(let key in data.attrs){
+            for (let key in data.attrs) {
                 Ctor.data[key] = data.attrs[key]
             }
             vnode._component = new Factory(Ctor)

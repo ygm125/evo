@@ -2219,7 +2219,7 @@ var Evo = function () {
             var render = vm.$options.render;
             var vnode = void 0;
             try {
-                vnode = render.call(vm);
+                vnode = render.call(vm, vm._h);
             } catch (e) {
                 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["e" /* warn */])(e);
             }
