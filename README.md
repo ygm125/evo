@@ -4,10 +4,10 @@
 
 ## 依赖
 
-snabbdom 模块化的虚拟 DOM
-observer-util 采用 Proxy 代理响应数据变动
+- snabbdom 模块化的虚拟 DOM
+- observer-util 采用 Proxy 代理响应数据变动
 
-## API （目前功能）
+## API
 
 数据
 
@@ -97,4 +97,4 @@ new Evo({
 
 ## Other
 
-待完善~
+目前属于玩物级别，待完善~
