@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>demo</title>
+    <title></title>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
 
         <a v-for="(item,index) in list" @click="popMsg(item.text)">{{index}}、{{item.text}}</a>
 
-        <my-component></my-component>
+        <my-component :message="message"></my-component>
 
         <div v-if="first">first</div>
         <div v-else>not</div>
@@ -23,7 +23,7 @@
             data: {
                 text: 'component'
             },
-            template: '<div>A custom {{text}}!</div>'
+            template: '<div>A custom {{text}} {{message}}!</div>'
         }
 
         var app = new Evo({

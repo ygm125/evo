@@ -114,9 +114,14 @@ export class Evo {
         let Factory = this.constructor
         data.hook = data.hook || {}
         data.hook.init = (vnode) => {
-            new Factory(Ctor)
+            Ctor.data = Ctor.data || {}
+            for(let key in data.attrs){
+                Ctor.data[key] = data.attrs[key]
+            }
+            vnode._component = new Factory(Ctor)
         }
-        return Ctor._vnode = new VNode(`vue-component-${sel}`, data, children, undefined, createElement(sel))
+        Ctor._vnode = new VNode(`vue-component-${sel}`, data, [], undefined, createElement(sel))
+        return Ctor._vnode
     }
 
     _patch = _patch
