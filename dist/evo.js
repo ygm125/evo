@@ -433,11 +433,17 @@ module.exports = __webpack_require__(20)
 
 
 
+var cache = {};
+
 function compileToFunctions(template, vm) {
     var root = void 0;
     var currentParent = void 0;
     var options = vm.$options;
     var stack = [];
+
+    if (cache[template]) {
+        return cache[template];
+    }
 
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__html_parser__["a" /* default */])(template, {
         start: function start(tag, attrs, unary) {
@@ -507,7 +513,7 @@ function compileToFunctions(template, vm) {
         comment: function comment(text) {}
     });
 
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__codegen__["a" /* default */])(root);
+    return cache[template] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__codegen__["a" /* default */])(root);
 }
 
 function processFor(el) {

@@ -19,11 +19,17 @@ import {
     processIfConditions
 } from './helpers'
 
+const cache = {}
+
 export function compileToFunctions(template, vm) {
     let root
     let currentParent
     let options = vm.$options
     let stack = []
+
+    if (cache[template]) {
+        return cache[template]
+    }
 
     HTMLParser(template, {
         start: function (tag, attrs, unary) {
@@ -72,7 +78,7 @@ export function compileToFunctions(template, vm) {
             currentParent = stack[stack.length - 1]
         },
         chars: function (text) {
-            if(!text.trim()){
+            if (!text.trim()) {
                 text = ' '
             }
 
@@ -93,8 +99,8 @@ export function compileToFunctions(template, vm) {
         },
         comment: function (text) { }
     })
-    
-    return codeGen(root)
+
+    return (cache[template] = codeGen(root))
 }
 
 function processFor(el) {
