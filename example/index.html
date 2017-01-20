@@ -30,6 +30,9 @@
             components: {
                 'my-component': Child
             },
+            beforeCreate:function(){
+                console.log('111')
+            },
             el: "#app",
             data: {
                 first: true,

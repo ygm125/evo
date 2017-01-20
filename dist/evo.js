@@ -2206,9 +2206,10 @@ var Evo = function () {
                 vm._update(vm._render());
             });
 
-            callHook(vm, 'mounted');
-
-            vm._isMounted = true;
+            if (!vm._vnode) {
+                vm._isMounted = true;
+                callHook(vm, 'mounted');
+            }
 
             return vm;
         }
@@ -2251,7 +2252,7 @@ var Evo = function () {
         value: function _createComponent(Ctor, data, children, sel) {
             Ctor._isComponent = true;
             var Factory = this.constructor;
-            data.hook = data.hook || {};
+
             data.hook.init = function (vnode) {
                 Ctor.data = Ctor.data || {};
                 for (var key in data.attrs) {
@@ -2259,6 +2260,7 @@ var Evo = function () {
                 }
                 vnode._component = new Factory(Ctor);
             };
+
             Ctor._vnode = new __WEBPACK_IMPORTED_MODULE_11_snabbdom_vnode___default.a('vue-component-' + sel, data, [], undefined, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10_snabbdom_htmldomapi__["createElement"])(sel));
             return Ctor._vnode;
         }
@@ -2277,6 +2279,35 @@ var Evo = function () {
         value: function _h(sel, data, children) {
             var vm = this;
 
+            data = data || {};
+
+            if (Array.isArray(data)) {
+                children = data;
+                data = {};
+            }
+
+            data.hook = data.hook || {};
+
+            if (vm.$options.destroy) {
+                data.hook.destroy = vm.$options.destroy.bind(vm);
+            }
+
+            if (Array.isArray(children)) {
+                (function () {
+                    var faltChildren = [];
+
+                    children.forEach(function (item) {
+                        if (Array.isArray(item)) {
+                            faltChildren = faltChildren.concat(item);
+                        } else {
+                            faltChildren.push(item);
+                        }
+                    });
+
+                    children = faltChildren.length ? faltChildren : children;
+                })();
+            }
+
             if (typeof sel == 'string') {
                 var Ctor = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["f" /* resolveAsset */])(vm.$options, 'components', sel);
                 if (Ctor) {
@@ -2284,24 +2315,7 @@ var Evo = function () {
                 }
             }
 
-            var faltChildren = [];
-
-            if (Array.isArray(data)) {
-                children = data;
-                data = null;
-            }
-
-            if (Array.isArray(children)) {
-                children.forEach(function (item) {
-                    if (Array.isArray(item)) {
-                        faltChildren = faltChildren.concat(item);
-                    } else {
-                        faltChildren.push(item);
-                    }
-                });
-            }
-
-            return __WEBPACK_IMPORTED_MODULE_9_snabbdom_h___default()(sel, data, faltChildren.length ? faltChildren : children);
+            return __WEBPACK_IMPORTED_MODULE_9_snabbdom_h___default()(sel, data, children);
         }
     }, {
         key: '_l',
@@ -2339,9 +2353,7 @@ var Evo = function () {
 function callHook(vm, hook) {
     var handlers = vm.$options[hook];
     if (handlers) {
-        for (var i = 0, j = handlers.length; i < j; i++) {
-            handlers[i].call(vm);
-        }
+        handlers.call(vm);
     }
 }
 

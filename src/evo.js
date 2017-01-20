@@ -70,7 +70,7 @@ export class Evo {
             vm._update(vm._render())
         })
 
-        if(!vm._vnode){
+        if (!vm._vnode) {
             vm._isMounted = true
             callHook(vm, 'mounted')
         }
@@ -113,7 +113,7 @@ export class Evo {
     _createComponent(Ctor, data, children, sel) {
         Ctor._isComponent = true
         let Factory = this.constructor
-        data.hook = data.hook || {}
+
         data.hook.init = (vnode) => {
             Ctor.data = Ctor.data || {}
             for (let key in data.attrs) {
@@ -121,6 +121,7 @@ export class Evo {
             }
             vnode._component = new Factory(Ctor)
         }
+
         Ctor._vnode = new VNode(`vue-component-${sel}`, data, [], undefined, createElement(sel))
         return Ctor._vnode
     }
@@ -140,21 +141,22 @@ export class Evo {
     _h(sel, data, children) {
         let vm = this
 
-        if (typeof sel == 'string') {
-            let Ctor = resolveAsset(vm.$options, 'components', sel)
-            if (Ctor) {
-                return vm._createComponent(Ctor, data, children, sel)
-            }
-        }
-
-        let faltChildren = []
+        data = data || {}
 
         if (Array.isArray(data)) {
             children = data
-            data = null
+            data = {}
+        }
+
+        data.hook = data.hook || {}
+
+        if (vm.$options.destroy) {
+            data.hook.destroy = vm.$options.destroy.bind(vm)
         }
 
         if (Array.isArray(children)) {
+            let faltChildren = []
+
             children.forEach((item) => {
                 if (Array.isArray(item)) {
                     faltChildren = faltChildren.concat(item)
@@ -162,9 +164,18 @@ export class Evo {
                     faltChildren.push(item)
                 }
             })
+
+            children = faltChildren.length ? faltChildren : children
         }
 
-        return _h(sel, data, faltChildren.length ? faltChildren : children)
+        if (typeof sel == 'string') {
+            let Ctor = resolveAsset(vm.$options, 'components', sel)
+            if (Ctor) {
+                return vm._createComponent(Ctor, data, children, sel)
+            }
+        }
+
+        return _h(sel, data, children)
     }
 
     _l(val, render) {
@@ -194,9 +205,7 @@ export class Evo {
 function callHook(vm, hook) {
     const handlers = vm.$options[hook]
     if (handlers) {
-        for (let i = 0, j = handlers.length; i < j; i++) {
-            handlers[i].call(vm)
-        }
+        handlers.call(vm)
     }
 }
 
