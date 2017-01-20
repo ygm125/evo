@@ -70,9 +70,10 @@ export class Evo {
             vm._update(vm._render())
         })
 
-        callHook(vm, 'mounted')
-
-        vm._isMounted = true
+        if(!vm._vnode){
+            vm._isMounted = true
+            callHook(vm, 'mounted')
+        }
 
         return vm
     }
