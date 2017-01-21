@@ -100,7 +100,6 @@ export class Evo {
     _createComponent(Ctor, data, children, sel) {
         Ctor._isComponent = true
         let Factory = this.constructor
-        let parentKeys = Object.keys(data.attrs)
         let parentData = this.$data
 
         data.hook.init = (vnode) => {
@@ -108,7 +107,7 @@ export class Evo {
 
             let componentVm = new Factory(Ctor)
 
-            parentKeys.forEach((key) => {
+            for (let key in data.attrs) {
                 Object.defineProperty(componentVm, key, {
                     configurable: true,
                     enumerable: true,
@@ -116,7 +115,7 @@ export class Evo {
                         return parentData[key]
                     }
                 })
-            })
+            }
 
             observer.observe(() => {
                 componentVm.$forceUpdate()

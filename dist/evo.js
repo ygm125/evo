@@ -2279,7 +2279,6 @@ var Evo = function () {
         value: function _createComponent(Ctor, data, children, sel) {
             Ctor._isComponent = true;
             var Factory = this.constructor;
-            var parentKeys = Object.keys(data.attrs);
             var parentData = this.$data;
 
             data.hook.init = function (vnode) {
@@ -2287,7 +2286,7 @@ var Evo = function () {
 
                 var componentVm = new Factory(Ctor);
 
-                parentKeys.forEach(function (key) {
+                var _loop = function _loop(key) {
                     Object.defineProperty(componentVm, key, {
                         configurable: true,
                         enumerable: true,
@@ -2295,7 +2294,11 @@ var Evo = function () {
                             return parentData[key];
                         }
                     });
-                });
+                };
+
+                for (var key in data.attrs) {
+                    _loop(key);
+                }
 
                 __WEBPACK_IMPORTED_MODULE_0__nx_js_observer_util___default.a.observe(function () {
                     componentVm.$forceUpdate();
