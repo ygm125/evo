@@ -30,7 +30,7 @@ new Evo({
 
 指令
 
-- v-if
+- v-if、v-else-if、v-else
 - v-for
 - v-on | @
     修饰符
