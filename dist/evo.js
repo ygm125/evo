@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -196,66 +196,6 @@ module.exports = function(sel, data, children, text, elm) {
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-function createElement(tagName){
-  return document.createElement(tagName);
-}
-
-function createElementNS(namespaceURI, qualifiedName){
-  return document.createElementNS(namespaceURI, qualifiedName);
-}
-
-function createTextNode(text){
-  return document.createTextNode(text);
-}
-
-
-function insertBefore(parentNode, newNode, referenceNode){
-  parentNode.insertBefore(newNode, referenceNode);
-}
-
-
-function removeChild(node, child){
-  node.removeChild(child);
-}
-
-function appendChild(node, child){
-  node.appendChild(child);
-}
-
-function parentNode(node){
-  return node.parentElement;
-}
-
-function nextSibling(node){
-  return node.nextSibling;
-}
-
-function tagName(node){
-  return node.tagName;
-}
-
-function setTextContent(node, text){
-  node.textContent = text;
-}
-
-module.exports = {
-  createElement: createElement,
-  createElementNS: createElementNS,
-  createTextNode: createTextNode,
-  appendChild: appendChild,
-  removeChild: removeChild,
-  insertBefore: insertBefore,
-  parentNode: parentNode,
-  nextSibling: nextSibling,
-  tagName: tagName,
-  setTextContent: setTextContent
-};
-
-
-/***/ },
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -397,6 +337,66 @@ function makeFunction(code) {
 }
 
 /***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+function createElement(tagName){
+  return document.createElement(tagName);
+}
+
+function createElementNS(namespaceURI, qualifiedName){
+  return document.createElementNS(namespaceURI, qualifiedName);
+}
+
+function createTextNode(text){
+  return document.createTextNode(text);
+}
+
+
+function insertBefore(parentNode, newNode, referenceNode){
+  parentNode.insertBefore(newNode, referenceNode);
+}
+
+
+function removeChild(node, child){
+  node.removeChild(child);
+}
+
+function appendChild(node, child){
+  node.appendChild(child);
+}
+
+function parentNode(node){
+  return node.parentElement;
+}
+
+function nextSibling(node){
+  return node.nextSibling;
+}
+
+function tagName(node){
+  return node.tagName;
+}
+
+function setTextContent(node, text){
+  node.textContent = text;
+}
+
+module.exports = {
+  createElement: createElement,
+  createElementNS: createElementNS,
+  createTextNode: createTextNode,
+  appendChild: appendChild,
+  removeChild: removeChild,
+  insertBefore: insertBefore,
+  parentNode: parentNode,
+  nextSibling: nextSibling,
+  tagName: tagName,
+  setTextContent: setTextContent
+};
+
+
+/***/ },
 /* 4 */
 /***/ function(module, exports) {
 
@@ -413,7 +413,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = __webpack_require__(20)
+module.exports = __webpack_require__(14)
 
 
 /***/ },
@@ -421,11 +421,11 @@ module.exports = __webpack_require__(20)
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_parser__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__text_parser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__codegen__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__html_parser__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__text_parser__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__codegen__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers__ = __webpack_require__(2);
 /* harmony export (immutable) */ exports["a"] = compileToFunctions;
 
 
@@ -616,6 +616,940 @@ function processAttrs(el) {
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snabbdom__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snabbdom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snabbdom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__);
+/* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__, "createElement")) __webpack_require__.d(exports, "d", function() { return __WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__["createElement"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_snabbdom_h__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_snabbdom_h___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_snabbdom_h__);
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_6_snabbdom_h___default.a; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode__);
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode___default.a; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return patch; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var patch = __WEBPACK_IMPORTED_MODULE_0_snabbdom___default.a.init([__WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class___default.a, __WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props___default.a, __WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes___default.a, __WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style___default.a, __WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners___default.a]);
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const native = Map.prototype
+const masterKey = Symbol('Map master key')
+
+const getters = ['has', 'get']
+const iterators = ['forEach', 'keys', 'values', 'entries', Symbol.iterator]
+const all = ['set', 'delete', 'clear'].concat(getters, iterators)
+
+module.exports = function shim (target, registerObserver, queueObservers) {
+  target.$raw = {}
+
+  for (let method of all) {
+    target.$raw[method] = function () {
+      native[method].apply(target, arguments)
+    }
+  }
+
+  for (let getter of getters) {
+    target[getter] = function (key) {
+      registerObserver(this, key)
+      return native[getter].apply(this, arguments)
+    }
+  }
+
+  for (let iterator of iterators) {
+    target[iterator] = function () {
+      registerObserver(this, masterKey)
+      return native[iterator].apply(this, arguments)
+    }
+  }
+
+  target.set = function (key, value) {
+    if (this.get(key) !== value) {
+      queueObservers(this, key)
+      queueObservers(this, masterKey)
+    }
+    return native.set.apply(this, arguments)
+  }
+
+  target.delete = function (key) {
+    if (this.has(key)) {
+      queueObservers(this, key)
+      queueObservers(this, masterKey)
+    }
+    return native.delete.apply(this, arguments)
+  }
+
+  target.clear = function () {
+    if (this.size) {
+      queueObservers(this, masterKey)
+    }
+    return native.clear.apply(this, arguments)
+  }
+
+  return target
+}
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const native = Set.prototype
+const masterValue = Symbol('Set master value')
+
+const getters = ['has']
+const iterators = ['forEach', 'keys', 'values', 'entries', Symbol.iterator]
+const all = ['add', 'delete', 'clear'].concat(getters, iterators)
+
+module.exports = function shim (target, registerObserver, queueObservers) {
+  target.$raw = {}
+
+  for (let method of all) {
+    target.$raw[method] = function () {
+      native[method].apply(target, arguments)
+    }
+  }
+
+  for (let getter of getters) {
+    target[getter] = function (value) {
+      registerObserver(this, value)
+      return native[getter].apply(this, arguments)
+    }
+  }
+
+  for (let iterator of iterators) {
+    target[iterator] = function () {
+      registerObserver(this, masterValue)
+      return native[iterator].apply(this, arguments)
+    }
+  }
+
+  target.add = function (value) {
+    if (!this.has(value)) {
+      queueObservers(this, value)
+      queueObservers(this, masterValue)
+    }
+    return native.add.apply(this, arguments)
+  }
+
+  target.delete = function (value) {
+    if (this.has(value)) {
+      queueObservers(this, value)
+      queueObservers(this, masterValue)
+    }
+    return native.delete.apply(this, arguments)
+  }
+
+  target.clear = function () {
+    if (this.size) {
+      queueObservers(this, masterValue)
+    }
+    return native.clear.apply(this, arguments)
+  }
+
+  return target
+}
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const native = WeakMap.prototype
+
+const getters = ['has', 'get']
+const all = ['set', 'delete'].concat(getters)
+
+module.exports = function shim (target, registerObserver, queueObservers) {
+  target.$raw = {}
+
+  for (let method of all) {
+    target.$raw[method] = function () {
+      native[method].apply(target, arguments)
+    }
+  }
+
+  for (let getter of getters) {
+    target[getter] = function (key) {
+      registerObserver(this, key)
+      return native[getter].apply(this, arguments)
+    }
+  }
+
+  target.set = function (key, value) {
+    if (this.get(key) !== value) {
+      queueObservers(this, key)
+    }
+    return native.set.apply(this, arguments)
+  }
+
+  target.delete = function (key) {
+    if (this.has(key)) {
+      queueObservers(this, key)
+    }
+    return native.delete.apply(this, arguments)
+  }
+
+  return target
+}
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const native = WeakSet.prototype
+
+const getters = ['has']
+const all = ['add', 'delete'].concat(getters)
+
+module.exports = function shim (target, registerObserver, queueObservers) {
+  target.$raw = {}
+
+  for (let method of all) {
+    target.$raw[method] = function () {
+      native[method].apply(target, arguments)
+    }
+  }
+
+  for (let getter of getters) {
+    target[getter] = function (value) {
+      registerObserver(this, value)
+      return native[getter].apply(this, arguments)
+    }
+  }
+
+  target.add = function (value) {
+    if (!this.has(value)) {
+      queueObservers(this, value)
+    }
+    return native.add.apply(this, arguments)
+  }
+
+  target.delete = function (value) {
+    if (this.has(value)) {
+      queueObservers(this, value)
+    }
+    return native.delete.apply(this, arguments)
+  }
+
+  return target
+}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const MapShim = __webpack_require__(8)
+const SetShim = __webpack_require__(9)
+const WeakMapShim = __webpack_require__(10)
+const WeakSetShim = __webpack_require__(11)
+
+module.exports = new Map([
+  [Map, MapShim],
+  [Set, SetShim],
+  [WeakMap, WeakMapShim],
+  [WeakSet, WeakSetShim],
+  [Date, true],
+  [RegExp, true]
+])
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+let promise = Promise.resolve()
+let mutateWithTask
+let currTask
+
+module.exports = function nextTick (task) {
+  currTask = task
+  if (mutateWithTask) {
+    mutateWithTask()
+  } else {
+    promise = promise.then(task)
+  }
+}
+
+if (typeof MutationObserver !== 'undefined') {
+  let counter = 0
+  const observer = new MutationObserver(onTask)
+  const textNode = document.createTextNode(String(counter))
+  observer.observe(textNode, {characterData: true})
+
+  mutateWithTask = function mutateWithTask () {
+    counter = (counter + 1) % 2
+    textNode.textContent = counter
+  }
+}
+
+function onTask () {
+  if (currTask) {
+    currTask()
+  }
+}
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const nextTick = __webpack_require__(13)
+const builtIns = __webpack_require__(12)
+const wellKnowSymbols = __webpack_require__(15)
+
+const proxies = new WeakMap()
+const observers = new WeakMap()
+const queuedObservers = new Set()
+const enumerate = Symbol('enumerate')
+let queued = false
+let currentObserver
+const handlers = {get, ownKeys, set, deleteProperty}
+
+module.exports = {
+  observe,
+  unobserve,
+  queue,
+  observable,
+  isObservable
+}
+
+function observe (fn, context, ...args) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('first argument must be a function')
+  }
+  args = args.length ? args : undefined
+  const observer = {fn, context, args, observedKeys: []}
+  queueObserver(observer)
+  return observer
+}
+
+function unobserve (observer) {
+  if (typeof observer === 'object') {
+    if (observer.observedKeys) {
+      observer.observedKeys.forEach(unobserveKey, observer)
+    }
+    observer.fn = observer.context = observer.args = observer.observedKeys = undefined
+  }
+}
+
+function queue (fn, context, ...args) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('first argument must be a function')
+  }
+  args = args.length ? args : undefined
+  const observer = {fn, context, args, once: true}
+  queueObserver(observer)
+  return observer
+}
+
+function observable (obj) {
+  obj = obj || {}
+  if (typeof obj !== 'object') {
+    throw new TypeError('first argument must be an object or undefined')
+  }
+  return proxies.get(obj) || toObservable(obj)
+}
+
+function toObservable (obj) {
+  let observable
+  const builtIn = builtIns.get(obj.constructor)
+  if (typeof builtIn === 'function') {
+    observable = builtIn(obj, registerObserver, queueObservers)
+  } else if (!builtIn) {
+    observable = new Proxy(obj, handlers)
+  } else {
+    observable = obj
+  }
+  proxies.set(obj, observable)
+  proxies.set(observable, observable)
+  observers.set(obj, new Map())
+  return observable
+}
+
+function isObservable (obj) {
+  if (typeof obj !== 'object') {
+    throw new TypeError('first argument must be an object')
+  }
+  return (proxies.get(obj) === obj)
+}
+
+function get (target, key, receiver) {
+  if (key === '$raw') return target
+  const result = Reflect.get(target, key, receiver)
+  if (typeof key === 'symbol' && wellKnowSymbols.has(key)) {
+    return result
+  }
+  const isObject = (typeof result === 'object' && result)
+  const observable = isObject && proxies.get(result)
+  if (currentObserver) {
+    registerObserver(target, key)
+    if (isObject) {
+      return observable || toObservable(result)
+    }
+  }
+  return observable || result
+}
+
+function registerObserver (target, key) {
+  if (currentObserver) {
+    const observersForTarget = observers.get(target)
+    let observersForKey = observersForTarget.get(key)
+    if (!observersForKey) {
+      observersForKey = new Set()
+      observersForTarget.set(key, observersForKey)
+    }
+    if (!observersForKey.has(currentObserver)) {
+      observersForKey.add(currentObserver)
+      currentObserver.observedKeys.push(observersForKey)
+    }
+  }
+}
+
+function ownKeys (target) {
+  registerObserver(target, enumerate)
+  return Reflect.ownKeys(target)
+}
+
+function set (target, key, value, receiver) {
+  if (key === 'length' || value !== Reflect.get(target, key, receiver)) {
+    queueObservers(target, key)
+    queueObservers(target, enumerate)
+  }
+  if (typeof value === 'object' && value) {
+    value = value.$raw || value
+  }
+  return Reflect.set(target, key, value, receiver)
+}
+
+function deleteProperty (target, key) {
+  if (Reflect.has(target, key)) {
+    queueObservers(target, key)
+    queueObservers(target, enumerate)
+  }
+  return Reflect.deleteProperty(target, key)
+}
+
+function queueObservers (target, key) {
+  const observersForKey = observers.get(target).get(key)
+  if (observersForKey) {
+    observersForKey.forEach(queueObserver)
+  }
+}
+
+function queueObserver (observer) {
+  if (!queued) {
+    nextTick(runObservers)
+    queued = true
+  }
+  queuedObservers.add(observer)
+}
+
+function runObservers () {
+  queuedObservers.forEach(runObserver)
+  queuedObservers.clear()
+  queued = false
+}
+
+function runObserver (observer) {
+  if (observer.fn) {
+    if (observer.once) {
+      observer.fn.apply(observer.context, observer.args)
+      unobserve(observer)
+    } else {
+      try {
+        currentObserver = observer
+        observer.fn.apply(observer.context, observer.args)
+      } finally {
+        currentObserver = undefined
+      }
+    }
+  }
+}
+
+function unobserveKey (observersForKey) {
+  observersForKey.delete(this)
+}
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const wellKnowSymbols = new Set()
+
+for (let key of Object.getOwnPropertyNames(Symbol)) {
+  const value = Symbol[key]
+  if (typeof value === 'symbol') {
+    wellKnowSymbols.add(value)
+  }
+}
+
+module.exports = wellKnowSymbols
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(2);
+/* harmony export (immutable) */ exports["a"] = codeGen;
+
+
+var fnExpRE = /^\s*([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
+var simplePathRE = /^\s*[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['.*?']|\[".*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*\s*$/;
+var modifierCode = {
+    stop: '$event.stopPropagation();',
+    prevent: '$event.preventDefault();',
+    self: 'if($event.target !== $event.currentTarget)return;',
+    ctrl: 'if(!$event.ctrlKey)return;',
+    shift: 'if(!$event.shiftKey)return;',
+    alt: 'if(!$event.altKey)return;',
+    meta: 'if(!$event.metaKey)return;'
+};
+
+var keyCodes = {
+    esc: 27,
+    tab: 9,
+    enter: 13,
+    space: 32,
+    up: 38,
+    left: 37,
+    right: 39,
+    down: 40,
+    'delete': [8, 46]
+};
+
+function codeGen(ast) {
+
+    var code = ast ? genElement(ast) : '_h("div")';
+
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["o" /* makeFunction */])('with(this){return ' + code + '}');
+}
+
+function genElement(el) {
+    if (el.for && !el.forProcessed) {
+        return genFor(el);
+    } else if (el.if && !el.ifProcessed) {
+        return genIf(el);
+    } else {
+        var code = void 0;
+        var data = genData(el);
+        var children = genChildren(el, true);
+        code = '_h(\'' + el.tag + '\'' + (data ? ',' + data : '' // data
+        ) + (children ? ',' + children : '' // children
+        ) + ')';
+        return code;
+    }
+}
+
+function genChildren(el, checkSkip) {
+    var children = el.children;
+    if (children.length) {
+        var _el = children[0];
+        // optimize single v-for
+        if (children.length === 1 && _el.for) {
+            return genElement(_el);
+        }
+        var normalizationType = 0;
+        return '[' + children.map(genNode).join(',') + ']' + (checkSkip ? normalizationType ? ',' + normalizationType : '' : '');
+    }
+}
+
+function genIf(el) {
+    el.ifProcessed = true; // avoid recursion
+    return genIfConditions(el.ifConditions.slice());
+}
+
+function genIfConditions(conditions) {
+    if (!conditions.length) {
+        return '';
+    }
+
+    var condition = conditions.shift();
+    if (condition.exp) {
+        return '(' + condition.exp + ')?' + genTernaryExp(condition.block) + ':' + genIfConditions(conditions);
+    } else {
+        return '' + genTernaryExp(condition.block);
+    }
+
+    // v-if with v-once should generate code like (a)?_m(0):_m(1)
+    function genTernaryExp(el) {
+        return genElement(el);
+    }
+}
+
+function genFor(el) {
+    var exp = el.for;
+    var alias = el.alias;
+    var iterator1 = el.iterator1 ? ',' + el.iterator1 : '';
+    var iterator2 = el.iterator2 ? ',' + el.iterator2 : '';
+    el.forProcessed = true; // avoid recursion
+
+    return '_l((' + exp + '),' + ('function(' + alias + iterator1 + iterator2 + '){') + ('return ' + genElement(el)) + '})';
+}
+
+function genNode(node) {
+    if (node.type === 1) {
+        return genElement(node);
+    } else {
+        return genText(node);
+    }
+}
+
+function genText(text) {
+    return text.type === 2 ? text.expression : JSON.stringify(text.text);
+}
+
+function genData(el) {
+    var data = '{';
+
+    // attributes
+    if (el.attrs) {
+        data += 'attrs:{' + genProps(el.attrs) + '},';
+    }
+    // DOM props
+    if (el.props) {
+        data += 'props:{' + genProps(el.props) + '},';
+    }
+    // event handlers
+    if (el.events) {
+        data += genHandlers(el.events) + ',';
+    }
+    if (el.nativeEvents) {
+        data += genHandlers(el.nativeEvents, true) + ',';
+    }
+
+    data = data.replace(/,$/, '') + '}';
+
+    return data;
+}
+
+function genProps(props) {
+    var res = '';
+    for (var i = 0; i < props.length; i++) {
+        var prop = props[i];
+        res += '"' + prop.name + '":' + prop.value + ',';
+    }
+    return res.slice(0, -1);
+}
+
+function genHandlers(events, native) {
+    var res = native ? 'nativeOn:{' : 'on:{';
+    for (var name in events) {
+        res += '"' + name + '":' + genHandler(name, events[name]) + ',';
+    }
+    return res.slice(0, -1) + '}';
+}
+
+function genHandler(name, handler) {
+    if (!handler) {
+        return 'function(){}';
+    } else if (Array.isArray(handler)) {
+        return '[' + handler.map(function (handler) {
+            return genHandler(name, handler);
+        }).join(',') + ']';
+    } else if (!handler.modifiers) {
+        return fnExpRE.test(handler.value) || simplePathRE.test(handler.value) ? handler.value : 'function($event){' + handler.value + '}';
+    } else {
+        var code = '';
+        var keys = [];
+        for (var key in handler.modifiers) {
+            if (modifierCode[key]) {
+                code += modifierCode[key];
+            } else {
+                keys.push(key);
+            }
+        }
+        if (keys.length) {
+            code = genKeyFilter(keys) + code;
+        }
+        var handlerCode = simplePathRE.test(handler.value) ? handler.value + '($event)' : handler.value;
+        return 'function($event){' + code + handlerCode + '}';
+    }
+}
+
+function genKeyFilter(keys) {
+    return 'if(' + keys.map(genFilterCode).join('&&') + ')return;';
+}
+
+function genFilterCode(key) {
+    var keyVal = parseInt(key, 10);
+    if (keyVal) {
+        return '$event.keyCode!==' + keyVal;
+    }
+    var alias = keyCodes[key];
+    return '_k($event.keyCode,' + JSON.stringify(key) + (alias ? ',' + JSON.stringify(alias) : '') + ')';
+}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ exports["a"] = HTMLParser;
+/*
+ * Modified at https://github.com/blowsie/Pure-JavaScript-HTML5-Parser
+ */
+
+// Regular Expressions for parsing tags and attributes
+var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:@][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
+    endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
+    attr = /([a-zA-Z_:@][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+
+// Empty Elements - HTML 5
+var empty = makeMap("area,base,basefont,br,col,frame,hr,img,input,link,meta,param,embed,command,keygen,source,track,wbr");
+
+// Block Elements - HTML 5
+var block = makeMap("a,address,article,applet,aside,audio,blockquote,button,canvas,center,dd,del,dir,div,dl,dt,fieldset,figcaption,figure,footer,form,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,output,p,pre,section,script,table,tbody,td,tfoot,th,thead,tr,ul,video");
+
+// Inline Elements - HTML 5
+var inline = makeMap("abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var");
+
+// Elements that you can, intentionally, leave open
+// (and which close themselves)
+var closeSelf = makeMap("colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr");
+
+// Attributes that have their values filled in disabled="disabled"
+var fillAttrs = makeMap("checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected");
+
+// Special Elements (can contain anything)
+var special = makeMap("script,style");
+
+function makeMap(str) {
+    var obj = {},
+        items = str.split(",");
+    for (var i = 0; i < items.length; i++) {
+        obj[items[i]] = true;
+    }return obj;
+}
+
+function HTMLParser(html, handler) {
+    var index,
+        chars,
+        match,
+        stack = [],
+        last = html;
+    stack.last = function () {
+        return this[this.length - 1];
+    };
+
+    while (html) {
+        chars = true;
+
+        // Make sure we're not in a script or style element
+        if (!stack.last() || !special[stack.last()]) {
+
+            // Comment
+            if (html.indexOf("<!--") == 0) {
+                index = html.indexOf("-->");
+
+                if (index >= 0) {
+                    if (handler.comment) handler.comment(html.substring(4, index));
+                    html = html.substring(index + 3);
+                    chars = false;
+                }
+
+                // end tag
+            } else if (html.indexOf("</") == 0) {
+                match = html.match(endTag);
+
+                if (match) {
+                    html = html.substring(match[0].length);
+                    match[0].replace(endTag, parseEndTag);
+                    chars = false;
+                }
+
+                // start tag
+            } else if (html.indexOf("<") == 0) {
+                match = html.match(startTag);
+
+                if (match) {
+                    html = html.substring(match[0].length);
+                    match[0].replace(startTag, parseStartTag);
+                    chars = false;
+                }
+            }
+
+            if (chars) {
+                index = html.indexOf("<");
+
+                var text = index < 0 ? html : html.substring(0, index);
+                html = index < 0 ? "" : html.substring(index);
+
+                if (handler.chars) handler.chars(text);
+            }
+        } else {
+            html = html.replace(new RegExp("([\\s\\S]*?)<\/" + stack.last() + "[^>]*>"), function (all, text) {
+                text = text.replace(/<!--([\s\S]*?)-->|<!\[CDATA\[([\s\S]*?)]]>/g, "$1$2");
+                if (handler.chars) handler.chars(text);
+
+                return "";
+            });
+
+            parseEndTag("", stack.last());
+        }
+
+        if (html == last) throw "Parse Error: " + html;
+        last = html;
+    }
+
+    // Clean up any remaining tags
+    parseEndTag();
+
+    function parseStartTag(tag, tagName, rest, unary) {
+        tagName = tagName.toLowerCase();
+
+        if (block[tagName]) {
+            while (stack.last() && inline[stack.last()]) {
+                parseEndTag("", stack.last());
+            }
+        }
+
+        if (closeSelf[tagName] && stack.last() == tagName) {
+            parseEndTag("", tagName);
+        }
+
+        unary = empty[tagName] || !!unary;
+
+        if (!unary) stack.push(tagName);
+
+        if (handler.start) {
+            var attrs = [];
+
+            rest.replace(attr, function (match, name) {
+                var value = arguments[2] ? arguments[2] : arguments[3] ? arguments[3] : arguments[4] ? arguments[4] : fillAttrs[name] ? name : "";
+
+                attrs.push({
+                    name: name,
+                    value: value,
+                    escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') //"
+                });
+            });
+
+            if (handler.start) handler.start(tagName, attrs, unary);
+        }
+    }
+
+    function parseEndTag(tag, tagName) {
+        // If no tag name is provided, clean shop
+        if (!tagName) var pos = 0;
+
+        // Find the closest opened tag of the same type
+        else for (var pos = stack.length - 1; pos >= 0; pos--) {
+                if (stack[pos] == tagName) break;
+            }if (pos >= 0) {
+            // Close all the open elements, up the stack
+            for (var i = stack.length - 1; i >= pos; i--) {
+                if (handler.end) handler.end(stack[i]);
+            } // Remove the open elements from the stack
+            stack.length = pos;
+        }
+    }
+};
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(0);
+/* harmony export (immutable) */ exports["a"] = TextParser;
+
+
+var defaultTagRE = /\{\{((?:.|\n)+?)\}\}/g;
+var regexEscapeRE = /[-.*+?^${}()|[\]/\\]/g;
+
+var buildRegex = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["k" /* cached */])(function (delimiters) {
+    var open = delimiters[0].replace(regexEscapeRE, '\\$&');
+    var close = delimiters[1].replace(regexEscapeRE, '\\$&');
+    return new RegExp(open + '((?:.|\\n)+?)' + close, 'g');
+});
+
+function TextParser(text, delimiters) {
+    var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
+    if (!tagRE.test(text)) {
+        return;
+    }
+    var tokens = [];
+    var lastIndex = tagRE.lastIndex = 0;
+    var match = void 0,
+        index = void 0;
+    while (match = tagRE.exec(text)) {
+        index = match.index;
+        // push text token
+        if (index > lastIndex) {
+            tokens.push(JSON.stringify(text.slice(lastIndex, index)));
+        }
+        // tag token
+        var exp = match[1].trim();
+        tokens.push('_s(' + exp + ')');
+        lastIndex = index + match[0].length;
+    }
+    if (lastIndex < text.length) {
+        tokens.push(JSON.stringify(text.slice(lastIndex)));
+    }
+    return tokens.join('+');
+}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
 var VNode = __webpack_require__(1);
 var is = __webpack_require__(4);
 
@@ -653,7 +1587,7 @@ module.exports = function h(sel, b, c) {
 
 
 /***/ },
-/* 8 */
+/* 20 */
 /***/ function(module, exports) {
 
 var NamespaceURIs = {
@@ -710,7 +1644,7 @@ module.exports = {create: updateAttrs, update: updateAttrs};
 
 
 /***/ },
-/* 9 */
+/* 21 */
 /***/ function(module, exports) {
 
 function updateClass(oldVnode, vnode) {
@@ -739,7 +1673,7 @@ module.exports = {create: updateClass, update: updateClass};
 
 
 /***/ },
-/* 10 */
+/* 22 */
 /***/ function(module, exports) {
 
 function invokeHandler(handler, vnode, event) {
@@ -846,7 +1780,7 @@ module.exports = {
 
 
 /***/ },
-/* 11 */
+/* 23 */
 /***/ function(module, exports) {
 
 function updateProps(oldVnode, vnode) {
@@ -875,7 +1809,7 @@ module.exports = {create: updateProps, update: updateProps};
 
 
 /***/ },
-/* 12 */
+/* 24 */
 /***/ function(module, exports) {
 
 var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
@@ -950,7 +1884,7 @@ module.exports = {create: updateStyle, update: updateStyle, destroy: applyDestro
 
 
 /***/ },
-/* 13 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -960,7 +1894,7 @@ module.exports = {create: updateStyle, update: updateStyle, destroy: applyDestro
 
 var VNode = __webpack_require__(1);
 var is = __webpack_require__(4);
-var domApi = __webpack_require__(2);
+var domApi = __webpack_require__(3);
 
 function isUndef(s) { return s === undefined; }
 function isDef(s) { return s !== undefined; }
@@ -1217,897 +2151,7 @@ module.exports = { init: init };
 
 
 /***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const native = Map.prototype
-const masterKey = Symbol('Map master key')
-
-const getters = ['has', 'get']
-const iterators = ['forEach', 'keys', 'values', 'entries', Symbol.iterator]
-const all = ['set', 'delete', 'clear'].concat(getters, iterators)
-
-module.exports = function shim (target, registerObserver, queueObservers) {
-  target.$raw = {}
-
-  for (let method of all) {
-    target.$raw[method] = function () {
-      native[method].apply(target, arguments)
-    }
-  }
-
-  for (let getter of getters) {
-    target[getter] = function (key) {
-      registerObserver(this, key)
-      return native[getter].apply(this, arguments)
-    }
-  }
-
-  for (let iterator of iterators) {
-    target[iterator] = function () {
-      registerObserver(this, masterKey)
-      return native[iterator].apply(this, arguments)
-    }
-  }
-
-  target.set = function (key, value) {
-    if (this.get(key) !== value) {
-      queueObservers(this, key)
-      queueObservers(this, masterKey)
-    }
-    return native.set.apply(this, arguments)
-  }
-
-  target.delete = function (key) {
-    if (this.has(key)) {
-      queueObservers(this, key)
-      queueObservers(this, masterKey)
-    }
-    return native.delete.apply(this, arguments)
-  }
-
-  target.clear = function () {
-    if (this.size) {
-      queueObservers(this, masterKey)
-    }
-    return native.clear.apply(this, arguments)
-  }
-
-  return target
-}
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const native = Set.prototype
-const masterValue = Symbol('Set master value')
-
-const getters = ['has']
-const iterators = ['forEach', 'keys', 'values', 'entries', Symbol.iterator]
-const all = ['add', 'delete', 'clear'].concat(getters, iterators)
-
-module.exports = function shim (target, registerObserver, queueObservers) {
-  target.$raw = {}
-
-  for (let method of all) {
-    target.$raw[method] = function () {
-      native[method].apply(target, arguments)
-    }
-  }
-
-  for (let getter of getters) {
-    target[getter] = function (value) {
-      registerObserver(this, value)
-      return native[getter].apply(this, arguments)
-    }
-  }
-
-  for (let iterator of iterators) {
-    target[iterator] = function () {
-      registerObserver(this, masterValue)
-      return native[iterator].apply(this, arguments)
-    }
-  }
-
-  target.add = function (value) {
-    if (!this.has(value)) {
-      queueObservers(this, value)
-      queueObservers(this, masterValue)
-    }
-    return native.add.apply(this, arguments)
-  }
-
-  target.delete = function (value) {
-    if (this.has(value)) {
-      queueObservers(this, value)
-      queueObservers(this, masterValue)
-    }
-    return native.delete.apply(this, arguments)
-  }
-
-  target.clear = function () {
-    if (this.size) {
-      queueObservers(this, masterValue)
-    }
-    return native.clear.apply(this, arguments)
-  }
-
-  return target
-}
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const native = WeakMap.prototype
-
-const getters = ['has', 'get']
-const all = ['set', 'delete'].concat(getters)
-
-module.exports = function shim (target, registerObserver, queueObservers) {
-  target.$raw = {}
-
-  for (let method of all) {
-    target.$raw[method] = function () {
-      native[method].apply(target, arguments)
-    }
-  }
-
-  for (let getter of getters) {
-    target[getter] = function (key) {
-      registerObserver(this, key)
-      return native[getter].apply(this, arguments)
-    }
-  }
-
-  target.set = function (key, value) {
-    if (this.get(key) !== value) {
-      queueObservers(this, key)
-    }
-    return native.set.apply(this, arguments)
-  }
-
-  target.delete = function (key) {
-    if (this.has(key)) {
-      queueObservers(this, key)
-    }
-    return native.delete.apply(this, arguments)
-  }
-
-  return target
-}
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const native = WeakSet.prototype
-
-const getters = ['has']
-const all = ['add', 'delete'].concat(getters)
-
-module.exports = function shim (target, registerObserver, queueObservers) {
-  target.$raw = {}
-
-  for (let method of all) {
-    target.$raw[method] = function () {
-      native[method].apply(target, arguments)
-    }
-  }
-
-  for (let getter of getters) {
-    target[getter] = function (value) {
-      registerObserver(this, value)
-      return native[getter].apply(this, arguments)
-    }
-  }
-
-  target.add = function (value) {
-    if (!this.has(value)) {
-      queueObservers(this, value)
-    }
-    return native.add.apply(this, arguments)
-  }
-
-  target.delete = function (value) {
-    if (this.has(value)) {
-      queueObservers(this, value)
-    }
-    return native.delete.apply(this, arguments)
-  }
-
-  return target
-}
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const MapShim = __webpack_require__(14)
-const SetShim = __webpack_require__(15)
-const WeakMapShim = __webpack_require__(16)
-const WeakSetShim = __webpack_require__(17)
-
-module.exports = new Map([
-  [Map, MapShim],
-  [Set, SetShim],
-  [WeakMap, WeakMapShim],
-  [WeakSet, WeakSetShim],
-  [Date, true],
-  [RegExp, true]
-])
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-let promise = Promise.resolve()
-let mutateWithTask
-let currTask
-
-module.exports = function nextTick (task) {
-  currTask = task
-  if (mutateWithTask) {
-    mutateWithTask()
-  } else {
-    promise = promise.then(task)
-  }
-}
-
-if (typeof MutationObserver !== 'undefined') {
-  let counter = 0
-  const observer = new MutationObserver(onTask)
-  const textNode = document.createTextNode(String(counter))
-  observer.observe(textNode, {characterData: true})
-
-  mutateWithTask = function mutateWithTask () {
-    counter = (counter + 1) % 2
-    textNode.textContent = counter
-  }
-}
-
-function onTask () {
-  if (currTask) {
-    currTask()
-  }
-}
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const nextTick = __webpack_require__(19)
-const builtIns = __webpack_require__(18)
-const wellKnowSymbols = __webpack_require__(21)
-
-const proxies = new WeakMap()
-const observers = new WeakMap()
-const queuedObservers = new Set()
-const enumerate = Symbol('enumerate')
-let queued = false
-let currentObserver
-const handlers = {get, ownKeys, set, deleteProperty}
-
-module.exports = {
-  observe,
-  unobserve,
-  queue,
-  observable,
-  isObservable
-}
-
-function observe (fn, context, ...args) {
-  if (typeof fn !== 'function') {
-    throw new TypeError('first argument must be a function')
-  }
-  args = args.length ? args : undefined
-  const observer = {fn, context, args, observedKeys: []}
-  queueObserver(observer)
-  return observer
-}
-
-function unobserve (observer) {
-  if (typeof observer === 'object') {
-    if (observer.observedKeys) {
-      observer.observedKeys.forEach(unobserveKey, observer)
-    }
-    observer.fn = observer.context = observer.args = observer.observedKeys = undefined
-  }
-}
-
-function queue (fn, context, ...args) {
-  if (typeof fn !== 'function') {
-    throw new TypeError('first argument must be a function')
-  }
-  args = args.length ? args : undefined
-  const observer = {fn, context, args, once: true}
-  queueObserver(observer)
-  return observer
-}
-
-function observable (obj) {
-  obj = obj || {}
-  if (typeof obj !== 'object') {
-    throw new TypeError('first argument must be an object or undefined')
-  }
-  return proxies.get(obj) || toObservable(obj)
-}
-
-function toObservable (obj) {
-  let observable
-  const builtIn = builtIns.get(obj.constructor)
-  if (typeof builtIn === 'function') {
-    observable = builtIn(obj, registerObserver, queueObservers)
-  } else if (!builtIn) {
-    observable = new Proxy(obj, handlers)
-  } else {
-    observable = obj
-  }
-  proxies.set(obj, observable)
-  proxies.set(observable, observable)
-  observers.set(obj, new Map())
-  return observable
-}
-
-function isObservable (obj) {
-  if (typeof obj !== 'object') {
-    throw new TypeError('first argument must be an object')
-  }
-  return (proxies.get(obj) === obj)
-}
-
-function get (target, key, receiver) {
-  if (key === '$raw') return target
-  const result = Reflect.get(target, key, receiver)
-  if (typeof key === 'symbol' && wellKnowSymbols.has(key)) {
-    return result
-  }
-  const isObject = (typeof result === 'object' && result)
-  const observable = isObject && proxies.get(result)
-  if (currentObserver) {
-    registerObserver(target, key)
-    if (isObject) {
-      return observable || toObservable(result)
-    }
-  }
-  return observable || result
-}
-
-function registerObserver (target, key) {
-  if (currentObserver) {
-    const observersForTarget = observers.get(target)
-    let observersForKey = observersForTarget.get(key)
-    if (!observersForKey) {
-      observersForKey = new Set()
-      observersForTarget.set(key, observersForKey)
-    }
-    if (!observersForKey.has(currentObserver)) {
-      observersForKey.add(currentObserver)
-      currentObserver.observedKeys.push(observersForKey)
-    }
-  }
-}
-
-function ownKeys (target) {
-  registerObserver(target, enumerate)
-  return Reflect.ownKeys(target)
-}
-
-function set (target, key, value, receiver) {
-  if (key === 'length' || value !== Reflect.get(target, key, receiver)) {
-    queueObservers(target, key)
-    queueObservers(target, enumerate)
-  }
-  if (typeof value === 'object' && value) {
-    value = value.$raw || value
-  }
-  return Reflect.set(target, key, value, receiver)
-}
-
-function deleteProperty (target, key) {
-  if (Reflect.has(target, key)) {
-    queueObservers(target, key)
-    queueObservers(target, enumerate)
-  }
-  return Reflect.deleteProperty(target, key)
-}
-
-function queueObservers (target, key) {
-  const observersForKey = observers.get(target).get(key)
-  if (observersForKey) {
-    observersForKey.forEach(queueObserver)
-  }
-}
-
-function queueObserver (observer) {
-  if (!queued) {
-    nextTick(runObservers)
-    queued = true
-  }
-  queuedObservers.add(observer)
-}
-
-function runObservers () {
-  queuedObservers.forEach(runObserver)
-  queuedObservers.clear()
-  queued = false
-}
-
-function runObserver (observer) {
-  if (observer.fn) {
-    if (observer.once) {
-      observer.fn.apply(observer.context, observer.args)
-      unobserve(observer)
-    } else {
-      try {
-        currentObserver = observer
-        observer.fn.apply(observer.context, observer.args)
-      } finally {
-        currentObserver = undefined
-      }
-    }
-  }
-}
-
-function unobserveKey (observersForKey) {
-  observersForKey.delete(this)
-}
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-const wellKnowSymbols = new Set()
-
-for (let key of Object.getOwnPropertyNames(Symbol)) {
-  const value = Symbol[key]
-  if (typeof value === 'symbol') {
-    wellKnowSymbols.add(value)
-  }
-}
-
-module.exports = wellKnowSymbols
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(3);
-/* harmony export (immutable) */ exports["a"] = codeGen;
-
-
-var fnExpRE = /^\s*([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
-var simplePathRE = /^\s*[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['.*?']|\[".*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*\s*$/;
-var modifierCode = {
-    stop: '$event.stopPropagation();',
-    prevent: '$event.preventDefault();',
-    self: 'if($event.target !== $event.currentTarget)return;',
-    ctrl: 'if(!$event.ctrlKey)return;',
-    shift: 'if(!$event.shiftKey)return;',
-    alt: 'if(!$event.altKey)return;',
-    meta: 'if(!$event.metaKey)return;'
-};
-
-var keyCodes = {
-    esc: 27,
-    tab: 9,
-    enter: 13,
-    space: 32,
-    up: 38,
-    left: 37,
-    right: 39,
-    down: 40,
-    'delete': [8, 46]
-};
-
-function codeGen(ast) {
-
-    var code = ast ? genElement(ast) : '_h("div")';
-
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["o" /* makeFunction */])('with(this){return ' + code + '}');
-}
-
-function genElement(el) {
-    if (el.for && !el.forProcessed) {
-        return genFor(el);
-    } else if (el.if && !el.ifProcessed) {
-        return genIf(el);
-    } else {
-        var code = void 0;
-        var data = genData(el);
-        var children = genChildren(el, true);
-        code = '_h(\'' + el.tag + '\'' + (data ? ',' + data : '' // data
-        ) + (children ? ',' + children : '' // children
-        ) + ')';
-        return code;
-    }
-}
-
-function genChildren(el, checkSkip) {
-    var children = el.children;
-    if (children.length) {
-        var _el = children[0];
-        // optimize single v-for
-        if (children.length === 1 && _el.for) {
-            return genElement(_el);
-        }
-        var normalizationType = 0;
-        return '[' + children.map(genNode).join(',') + ']' + (checkSkip ? normalizationType ? ',' + normalizationType : '' : '');
-    }
-}
-
-function genIf(el) {
-    el.ifProcessed = true; // avoid recursion
-    return genIfConditions(el.ifConditions.slice());
-}
-
-function genIfConditions(conditions) {
-    if (!conditions.length) {
-        return '';
-    }
-
-    var condition = conditions.shift();
-    if (condition.exp) {
-        return '(' + condition.exp + ')?' + genTernaryExp(condition.block) + ':' + genIfConditions(conditions);
-    } else {
-        return '' + genTernaryExp(condition.block);
-    }
-
-    // v-if with v-once should generate code like (a)?_m(0):_m(1)
-    function genTernaryExp(el) {
-        return genElement(el);
-    }
-}
-
-function genFor(el) {
-    var exp = el.for;
-    var alias = el.alias;
-    var iterator1 = el.iterator1 ? ',' + el.iterator1 : '';
-    var iterator2 = el.iterator2 ? ',' + el.iterator2 : '';
-    el.forProcessed = true; // avoid recursion
-
-    return '_l((' + exp + '),' + ('function(' + alias + iterator1 + iterator2 + '){') + ('return ' + genElement(el)) + '})';
-}
-
-function genNode(node) {
-    if (node.type === 1) {
-        return genElement(node);
-    } else {
-        return genText(node);
-    }
-}
-
-function genText(text) {
-    return text.type === 2 ? text.expression : JSON.stringify(text.text);
-}
-
-function genData(el) {
-    var data = '{';
-
-    // attributes
-    if (el.attrs) {
-        data += 'attrs:{' + genProps(el.attrs) + '},';
-    }
-    // DOM props
-    if (el.props) {
-        data += 'props:{' + genProps(el.props) + '},';
-    }
-    // event handlers
-    if (el.events) {
-        data += genHandlers(el.events) + ',';
-    }
-    if (el.nativeEvents) {
-        data += genHandlers(el.nativeEvents, true) + ',';
-    }
-
-    data = data.replace(/,$/, '') + '}';
-
-    return data;
-}
-
-function genProps(props) {
-    var res = '';
-    for (var i = 0; i < props.length; i++) {
-        var prop = props[i];
-        res += '"' + prop.name + '":' + prop.value + ',';
-    }
-    return res.slice(0, -1);
-}
-
-function genHandlers(events, native) {
-    var res = native ? 'nativeOn:{' : 'on:{';
-    for (var name in events) {
-        res += '"' + name + '":' + genHandler(name, events[name]) + ',';
-    }
-    return res.slice(0, -1) + '}';
-}
-
-function genHandler(name, handler) {
-    if (!handler) {
-        return 'function(){}';
-    } else if (Array.isArray(handler)) {
-        return '[' + handler.map(function (handler) {
-            return genHandler(name, handler);
-        }).join(',') + ']';
-    } else if (!handler.modifiers) {
-        return fnExpRE.test(handler.value) || simplePathRE.test(handler.value) ? handler.value : 'function($event){' + handler.value + '}';
-    } else {
-        var code = '';
-        var keys = [];
-        for (var key in handler.modifiers) {
-            if (modifierCode[key]) {
-                code += modifierCode[key];
-            } else {
-                keys.push(key);
-            }
-        }
-        if (keys.length) {
-            code = genKeyFilter(keys) + code;
-        }
-        var handlerCode = simplePathRE.test(handler.value) ? handler.value + '($event)' : handler.value;
-        return 'function($event){' + code + handlerCode + '}';
-    }
-}
-
-function genKeyFilter(keys) {
-    return 'if(' + keys.map(genFilterCode).join('&&') + ')return;';
-}
-
-function genFilterCode(key) {
-    var keyVal = parseInt(key, 10);
-    if (keyVal) {
-        return '$event.keyCode!==' + keyVal;
-    }
-    var alias = keyCodes[key];
-    return '_k($event.keyCode,' + JSON.stringify(key) + (alias ? ',' + JSON.stringify(alias) : '') + ')';
-}
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ exports["a"] = HTMLParser;
-/*
- * Modified at https://github.com/blowsie/Pure-JavaScript-HTML5-Parser
- */
-
-// Regular Expressions for parsing tags and attributes
-var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:@][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
-    endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
-    attr = /([a-zA-Z_:@][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
-
-// Empty Elements - HTML 5
-var empty = makeMap("area,base,basefont,br,col,frame,hr,img,input,link,meta,param,embed,command,keygen,source,track,wbr");
-
-// Block Elements - HTML 5
-var block = makeMap("a,address,article,applet,aside,audio,blockquote,button,canvas,center,dd,del,dir,div,dl,dt,fieldset,figcaption,figure,footer,form,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,output,p,pre,section,script,table,tbody,td,tfoot,th,thead,tr,ul,video");
-
-// Inline Elements - HTML 5
-var inline = makeMap("abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var");
-
-// Elements that you can, intentionally, leave open
-// (and which close themselves)
-var closeSelf = makeMap("colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr");
-
-// Attributes that have their values filled in disabled="disabled"
-var fillAttrs = makeMap("checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected");
-
-// Special Elements (can contain anything)
-var special = makeMap("script,style");
-
-function makeMap(str) {
-    var obj = {},
-        items = str.split(",");
-    for (var i = 0; i < items.length; i++) {
-        obj[items[i]] = true;
-    }return obj;
-}
-
-function HTMLParser(html, handler) {
-    var index,
-        chars,
-        match,
-        stack = [],
-        last = html;
-    stack.last = function () {
-        return this[this.length - 1];
-    };
-
-    while (html) {
-        chars = true;
-
-        // Make sure we're not in a script or style element
-        if (!stack.last() || !special[stack.last()]) {
-
-            // Comment
-            if (html.indexOf("<!--") == 0) {
-                index = html.indexOf("-->");
-
-                if (index >= 0) {
-                    if (handler.comment) handler.comment(html.substring(4, index));
-                    html = html.substring(index + 3);
-                    chars = false;
-                }
-
-                // end tag
-            } else if (html.indexOf("</") == 0) {
-                match = html.match(endTag);
-
-                if (match) {
-                    html = html.substring(match[0].length);
-                    match[0].replace(endTag, parseEndTag);
-                    chars = false;
-                }
-
-                // start tag
-            } else if (html.indexOf("<") == 0) {
-                match = html.match(startTag);
-
-                if (match) {
-                    html = html.substring(match[0].length);
-                    match[0].replace(startTag, parseStartTag);
-                    chars = false;
-                }
-            }
-
-            if (chars) {
-                index = html.indexOf("<");
-
-                var text = index < 0 ? html : html.substring(0, index);
-                html = index < 0 ? "" : html.substring(index);
-
-                if (handler.chars) handler.chars(text);
-            }
-        } else {
-            html = html.replace(new RegExp("([\\s\\S]*?)<\/" + stack.last() + "[^>]*>"), function (all, text) {
-                text = text.replace(/<!--([\s\S]*?)-->|<!\[CDATA\[([\s\S]*?)]]>/g, "$1$2");
-                if (handler.chars) handler.chars(text);
-
-                return "";
-            });
-
-            parseEndTag("", stack.last());
-        }
-
-        if (html == last) throw "Parse Error: " + html;
-        last = html;
-    }
-
-    // Clean up any remaining tags
-    parseEndTag();
-
-    function parseStartTag(tag, tagName, rest, unary) {
-        tagName = tagName.toLowerCase();
-
-        if (block[tagName]) {
-            while (stack.last() && inline[stack.last()]) {
-                parseEndTag("", stack.last());
-            }
-        }
-
-        if (closeSelf[tagName] && stack.last() == tagName) {
-            parseEndTag("", tagName);
-        }
-
-        unary = empty[tagName] || !!unary;
-
-        if (!unary) stack.push(tagName);
-
-        if (handler.start) {
-            var attrs = [];
-
-            rest.replace(attr, function (match, name) {
-                var value = arguments[2] ? arguments[2] : arguments[3] ? arguments[3] : arguments[4] ? arguments[4] : fillAttrs[name] ? name : "";
-
-                attrs.push({
-                    name: name,
-                    value: value,
-                    escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') //"
-                });
-            });
-
-            if (handler.start) handler.start(tagName, attrs, unary);
-        }
-    }
-
-    function parseEndTag(tag, tagName) {
-        // If no tag name is provided, clean shop
-        if (!tagName) var pos = 0;
-
-        // Find the closest opened tag of the same type
-        else for (var pos = stack.length - 1; pos >= 0; pos--) {
-                if (stack[pos] == tagName) break;
-            }if (pos >= 0) {
-            // Close all the open elements, up the stack
-            for (var i = stack.length - 1; i >= pos; i--) {
-                if (handler.end) handler.end(stack[i]);
-            } // Remove the open elements from the stack
-            stack.length = pos;
-        }
-    }
-};
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(0);
-/* harmony export (immutable) */ exports["a"] = TextParser;
-
-
-var defaultTagRE = /\{\{((?:.|\n)+?)\}\}/g;
-var regexEscapeRE = /[-.*+?^${}()|[\]/\\]/g;
-
-var buildRegex = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["k" /* cached */])(function (delimiters) {
-    var open = delimiters[0].replace(regexEscapeRE, '\\$&');
-    var close = delimiters[1].replace(regexEscapeRE, '\\$&');
-    return new RegExp(open + '((?:.|\\n)+?)' + close, 'g');
-});
-
-function TextParser(text, delimiters) {
-    var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
-    if (!tagRE.test(text)) {
-        return;
-    }
-    var tokens = [];
-    var lastIndex = tagRE.lastIndex = 0;
-    var match = void 0,
-        index = void 0;
-    while (match = tagRE.exec(text)) {
-        index = match.index;
-        // push text token
-        if (index > lastIndex) {
-            tokens.push(JSON.stringify(text.slice(lastIndex, index)));
-        }
-        // tag token
-        var exp = match[1].trim();
-        tokens.push('_s(' + exp + ')');
-        lastIndex = index + match[0].length;
-    }
-    if (lastIndex < text.length) {
-        tokens.push(JSON.stringify(text.slice(lastIndex)));
-    }
-    return tokens.join('+');
-}
-
-/***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2115,7 +2159,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nx_js_observer_util__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nx_js_observer_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__nx_js_observer_util__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__parser__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vdom__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vdom__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(exports, "Evo", function() { return Evo; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2181,9 +2225,11 @@ var Evo = function () {
 
             callHook(this, 'beforeMount');
 
-            __WEBPACK_IMPORTED_MODULE_0__nx_js_observer_util___default.a.observe(function () {
-                _this._update(_this._render());
-            });
+            if (!options._isComponent) {
+                __WEBPACK_IMPORTED_MODULE_0__nx_js_observer_util___default.a.observe(function () {
+                    _this._update(_this._render());
+                });
+            }
 
             if (!this._vnode) {
                 this._isMounted = true;
@@ -2233,13 +2279,29 @@ var Evo = function () {
         value: function _createComponent(Ctor, data, children, sel) {
             Ctor._isComponent = true;
             var Factory = this.constructor;
+            var parentKeys = Object.keys(data.attrs);
+            var parentData = this.$data;
 
             data.hook.init = function (vnode) {
                 Ctor.data = Ctor.data || {};
-                for (var key in data.attrs) {
-                    Ctor.data[key] = data.attrs[key];
-                }
-                vnode._component = new Factory(Ctor);
+
+                var componentVm = new Factory(Ctor);
+
+                parentKeys.forEach(function (key) {
+                    Object.defineProperty(componentVm, key, {
+                        configurable: true,
+                        enumerable: true,
+                        get: function proxyGetter() {
+                            return parentData[key];
+                        }
+                    });
+                });
+
+                __WEBPACK_IMPORTED_MODULE_0__nx_js_observer_util___default.a.observe(function () {
+                    componentVm.$forceUpdate();
+                });
+
+                vnode._component = componentVm;
             };
 
             Ctor._vnode = new __WEBPACK_IMPORTED_MODULE_2__vdom__["c" /* VNode */]('vue-component-' + sel, data, [], undefined, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__vdom__["d" /* createElement */])(sel));
@@ -2364,50 +2426,6 @@ function initMethods(vm, methods) {
         vm[key] = methods[key] == null ? __WEBPACK_IMPORTED_MODULE_3__util__["i" /* noop */] : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util__["f" /* bind */])(methods[key], vm);
     }
 }
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snabbdom__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snabbdom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snabbdom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__);
-/* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__, "createElement")) __webpack_require__.d(exports, "d", function() { return __WEBPACK_IMPORTED_MODULE_8_snabbdom_htmldomapi__["createElement"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_snabbdom_h__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_snabbdom_h___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_snabbdom_h__);
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_6_snabbdom_h___default.a; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode__);
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_7_snabbdom_vnode___default.a; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return patch; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var patch = __WEBPACK_IMPORTED_MODULE_0_snabbdom___default.a.init([__WEBPACK_IMPORTED_MODULE_1_snabbdom_modules_class___default.a, __WEBPACK_IMPORTED_MODULE_2_snabbdom_modules_props___default.a, __WEBPACK_IMPORTED_MODULE_3_snabbdom_modules_attributes___default.a, __WEBPACK_IMPORTED_MODULE_4_snabbdom_modules_style___default.a, __WEBPACK_IMPORTED_MODULE_5_snabbdom_modules_eventlisteners___default.a]);
 
 /***/ }
 /******/ ])));

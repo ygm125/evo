@@ -50,9 +50,11 @@ export class Evo {
 
         callHook(this, 'beforeMount')
 
-        observer.observe(() => {
-            this._update(this._render())
-        })
+        if (!options._isComponent) {
+            observer.observe(() => {
+                this._update(this._render())
+            })
+        }
 
         if (!this._vnode) {
             this._isMounted = true
@@ -98,13 +100,29 @@ export class Evo {
     _createComponent(Ctor, data, children, sel) {
         Ctor._isComponent = true
         let Factory = this.constructor
+        let parentKeys = Object.keys(data.attrs)
+        let parentData = this.$data
 
         data.hook.init = (vnode) => {
             Ctor.data = Ctor.data || {}
-            for (let key in data.attrs) {
-                Ctor.data[key] = data.attrs[key]
-            }
-            vnode._component = new Factory(Ctor)
+
+            let componentVm = new Factory(Ctor)
+
+            parentKeys.forEach((key) => {
+                Object.defineProperty(componentVm, key, {
+                    configurable: true,
+                    enumerable: true,
+                    get: function proxyGetter() {
+                        return parentData[key]
+                    }
+                })
+            })
+
+            observer.observe(() => {
+                componentVm.$forceUpdate()
+            })
+
+            vnode._component = componentVm
         }
 
         Ctor._vnode = new VNode(`vue-component-${sel}`, data, [], undefined, createElement(sel))
