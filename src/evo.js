@@ -1,49 +1,33 @@
-import { bind, noop, warn, query, getOuterHTML, idToTemplate, _toString, isObject, resolveAsset } from './util'
-import { compileToFunctions } from './parser/index'
 import observer from '@nx-js/observer-util'
-import snabbdom from 'snabbdom'
-import _class from 'snabbdom/modules/class'
-import _props from 'snabbdom/modules/props'
-import _attrs from 'snabbdom/modules/attributes'
-import _style from 'snabbdom/modules/style'
-import _eventlisteners from 'snabbdom/modules/eventlisteners'
-import _h from 'snabbdom/h'
-import { createElement } from 'snabbdom/htmldomapi'
-import VNode from 'snabbdom/vnode'
-
-const _patch = snabbdom.init([
-    _class,
-    _props,
-    _attrs,
-    _style,
-    _eventlisteners
-])
+import { compileToFunctions } from './parser'
+import { h, VNode, patch, createElement } from './vdom'
+import {
+    bind, noop, warn, query, getOuterHTML, idToTemplate, toString, isObject, resolveAsset
+} from './util'
 
 export class Evo {
     constructor(options) {
-        let vm = this
 
-        vm.$options = options
+        this.$options = options
 
-        callHook(vm, 'beforeCreate')
+        callHook(this, 'beforeCreate')
 
         if (options.data) {
-            initData(vm, options.data)
+            initData(this, options.data)
         }
 
         if (options.methods) {
-            initMethods(vm, options.methods)
+            initMethods(this, options.methods)
         }
 
-        callHook(vm, 'created')
+        callHook(this, 'created')
 
-        vm.$mount(vm.$options.el)
+        this.$mount(options.el)
     }
 
     $mount(el) {
-        let vm = this
-        let options = vm.$options
-        vm.$el = el = el && query(el)
+        let options = this.$options
+        this.$el = el = el && query(el)
 
         if (!options.render) {
             let template = options.template
@@ -53,60 +37,61 @@ export class Evo {
                         template = idToTemplate(template)
                     }
                 } else if (template.nodeType) {
-                    template = template.innerHTML;
+                    template = template.innerHTML
                 }
             } else if (el) {
                 template = getOuterHTML(el)
             }
             if (template) {
-                const render = compileToFunctions(template, vm)
+                const render = compileToFunctions(template, this)
                 options.render = render
             }
         }
 
-        callHook(vm, 'beforeMount')
+        callHook(this, 'beforeMount')
 
         observer.observe(() => {
-            vm._update(vm._render())
+            this._update(this._render())
         })
 
-        if (!vm._vnode) {
-            vm._isMounted = true
-            callHook(vm, 'mounted')
+        if (!this._vnode) {
+            this._isMounted = true
+            callHook(this, 'mounted')
         }
 
-        return vm
+        return this
+    }
+
+    $forceUpdate() {
+        this._update(this._render())
     }
 
     _render() {
-        let vm = this
-        let render = vm.$options.render
+        let render = this.$options.render
         let vnode
         try {
-            vnode = render.call(vm, vm._h)
+            vnode = render.call(this, h)
         } catch (e) {
-            warn(e)
+            warn(`render Error : ${e}`)
         }
-
         return vnode
     }
 
     _update(vnode) {
-        let vm = this
-        if (vm._isMounted) {
-            callHook(vm, 'beforeUpdate')
+        if (this._isMounted) {
+            callHook(this, 'beforeUpdate')
         }
-        const prevVnode = vm._vnode || vm.$options._vnode
-        vm._vnode = vnode
+        const prevVnode = this._vnode || this.$options._vnode
+        this._vnode = vnode
 
         if (!prevVnode) {
-            vm.$el = vm._patch(vm.$el, vnode)
+            this.$el = this._patch(this.$el, vnode)
         } else {
-            vm.$el = vm._patch(prevVnode, vnode)
+            this.$el = this._patch(prevVnode, vnode)
         }
 
-        if (vm._isMounted) {
-            callHook(vm, 'updated')
+        if (this._isMounted) {
+            callHook(this, 'updated')
         }
     }
 
@@ -126,8 +111,8 @@ export class Evo {
         return Ctor._vnode
     }
 
-    _patch = _patch
-    _s = _toString
+    _patch = patch
+    _s = toString
 
     _k(eventKeyCode, key, builtInAlias) {
         const keyCodes = builtInAlias
@@ -139,8 +124,6 @@ export class Evo {
     }
 
     _h(sel, data, children) {
-        let vm = this
-
         data = data || {}
 
         if (Array.isArray(data)) {
@@ -150,8 +133,8 @@ export class Evo {
 
         data.hook = data.hook || {}
 
-        if (vm.$options.destroy) {
-            data.hook.destroy = vm.$options.destroy.bind(vm)
+        if (this.$options.destroy) {
+            data.hook.destroy = bind(this.$options.destroy, this)
         }
 
         if (Array.isArray(children)) {
@@ -169,13 +152,13 @@ export class Evo {
         }
 
         if (typeof sel == 'string') {
-            let Ctor = resolveAsset(vm.$options, 'components', sel)
+            let Ctor = resolveAsset(this.$options, 'components', sel)
             if (Ctor) {
-                return vm._createComponent(Ctor, data, children, sel)
+                return this._createComponent(Ctor, data, children, sel)
             }
         }
 
-        return _h(sel, data, children)
+        return h(sel, data, children)
     }
 
     _l(val, render) {

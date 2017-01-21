@@ -66,7 +66,7 @@ export const idToTemplate = cached((id) => {
     return el && el.innerHTML
 })
 
-export function _toString(val) {
+export function toString(val) {
     return val == null
         ? ''
         : typeof val === 'object'
