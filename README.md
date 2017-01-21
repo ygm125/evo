@@ -13,10 +13,11 @@
 
 ```js
 new Evo({
+  el : '#app',
   data: {
       first : 'x',
       last : 'x'
-      get full(){ //支持 getter setter
+      get full(){ // setter getter 省去计算属性
           return this.first + this.last
       }
   }
@@ -25,7 +26,7 @@ new Evo({
 
 插值
 
-- {{ }}
+- {{ data }}
 
 指令
 
@@ -48,6 +49,7 @@ new Evo({
 - beforeUpdate
 - updated
 - mounted
+- destroy
 
 ## Demo
 
@@ -97,4 +99,4 @@ new Evo({
 
 ## Other
 
-目前属于玩物级别，待完善~
+待完善~
