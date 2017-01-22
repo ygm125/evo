@@ -1,11 +1,6 @@
 # Evo
 
-一个精简的、参考 Vue 的 MVVM 框架
-
-## 依赖
-
-- snabbdom 模块化的虚拟 DOM
-- observer-util 采用 Proxy 代理响应数据变动
+一个小型的、类 Vue 的 MVVM 框架，底层依赖 snabbdom 这个模块化的虚拟 DOM，响应数据采用 Proxy 做代理处理
 
 ## API
 
@@ -13,11 +8,10 @@
 
 ```js
 new Evo({
-  el : '#app',
   data: {
       first : 'x',
       last : 'x'
-      get full(){ // setter getter 省去计算属性
+      get full(){
           return this.first + this.last
       }
   }
