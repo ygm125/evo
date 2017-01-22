@@ -1,6 +1,8 @@
 # Evo
 
-一个小型的、类 Vue 的 MVVM 框架，底层依赖 snabbdom 这个模块化的虚拟 DOM，响应数据采用 Proxy 做代理处理
+一个小型的、类 Vue 的 MVVM 框架
+
+底层依赖 snabbdom 这个模块化的虚拟 DOM，响应数据采用 Proxy 做代理处理
 
 ## API
 
