@@ -39,13 +39,22 @@ new Evo({
 
 生命周期
 
-- beforeCreate
-- created
-- beforeMount
-- beforeUpdate
-- updated
-- mounted
-- destroy
+- beforeCreate  // data、methods 等未挂载
+- created       // data、methods 等已挂载
+- beforeMount   // 字符或 html 模板解析完成
+- mounted       // 界面初始渲染时调用，此时 dom 未生成
+- beforeUpdate  // 界面更新前
+- updated       // 界面更新后
+- destroy       // 组件销毁时
+
+*用法：*
+```js
+new Evo({
+  created(){
+     // this.xxx
+  }
+})
+```
 
 ## Demo
 
