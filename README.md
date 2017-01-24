@@ -22,14 +22,12 @@ var app = new Evo({
       }
   }
 })
-```
 
-*说明：*
-
-```js
-// data 所有属性可通过 app.$data 访问，也可通过 app 实例本身直接访问
-// 动态设置新属性需通过 $data 设置
-// 更多支持说明看这里 https://github.com/nx-js/observer-util
+/* 说明
+ * data 所有属性可通过 app.$data 访问，也可通过 app 实例本身直接访问
+ * 动态设置新属性需通过 $data 设置
+ * 更多支持说明看这里 https://github.com/nx-js/observer-util
+*/
 
 app.$data.first // x
 app.$data.first = 'y'
@@ -43,9 +41,27 @@ app.expando // xy
 
 插值
 
-- {{ data }}
+```js
+
+{{ data }}
+
+/* 
+ * 示例
+*/
+
+<div id="app">{{message}}</div>
+
+new Evo({
+  el : '#app',
+  data: {
+    message : 'hello'
+  }
+})
+```
 
 指令
+
+```js
 
 - v-if、v-else-if、v-else
 - v-for
@@ -55,12 +71,37 @@ app.expando // xy
     - .prevent 
     - .capture 
     - .self 
-    - .{keyCode | keyAlias} 
+    - .{keyCode | keyAlias}  // keyAlias 可选值 esc、tab、enter、space、up、left、right、down、delete
 - v-bind | :
+
+/*
+ * 示例：
+*/
+
+<div id="app">
+    <a href="" v-for="item in list" @click.prevent="popMsg(item.text)">{{item.text}}</a>
+</div>
+
+var app = new Evo({
+  el : '#app',
+  data: {
+     list: [
+         { text: "Im one" }, 
+         { text: "Im two" }
+     ]
+  },
+  methods: {
+      popMsg(text){
+          alert(text)
+      }
+  }
+})
+```
 
 生命周期
 
 ```js
+
 - beforeCreate  // data、methods 等未挂载
 - created       // data、methods 等已挂载
 - beforeMount   // 字符或 html 模板解析完成
@@ -68,13 +109,14 @@ app.expando // xy
 - beforeUpdate  // 界面更新前
 - updated       // 界面更新后
 - destroy       // 实例销毁时
-```
-*用法：*
 
-```js
+/* 
+ * 示例：
+*/
+
 new Evo({
   created(){
-     // this.xxx
+
   }
 })
 ```
