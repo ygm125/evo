@@ -39,6 +39,7 @@ new Evo({
 
 生命周期
 
+```js
 - beforeCreate  // data、methods 等未挂载
 - created       // data、methods 等已挂载
 - beforeMount   // 字符或 html 模板解析完成
@@ -46,7 +47,7 @@ new Evo({
 - beforeUpdate  // 界面更新前
 - updated       // 界面更新后
 - destroy       // 组件销毁时
-
+```
 *用法：*
 ```js
 new Evo({
