@@ -1,23 +1,44 @@
 # Evo
 
-一个小型的、类 Vue 的 MVVM 框架
+一个小型的、类 Vue 的 MVVM 框架，由于响应数据采用 Proxy，兼容性如下
 
-底层依赖 snabbdom 这个模块化的虚拟 DOM，响应数据采用 Proxy 做代理处理
+![](https://gmiam.com/static/upload/201701/gIPAUQXBqyRRk8UgLxuWgKSi.png)
 
 ## API
 
 数据
 
 ```js
-new Evo({
+var app = new Evo({
   data: {
       first : 'x',
-      last : 'x'
+      last : 'x',
       get full(){
           return this.first + this.last
+      },
+      set full(){
+          this.first = 'xx'
+          this.last = 'xx'
       }
   }
 })
+```
+
+*说明：*
+
+```js
+// data 所有属性可通过 app.$data 访问，也可通过 app 实例本身直接访问
+// 动态设置新属性需通过 $data 设置
+// 更多支持说明看这里 https://github.com/nx-js/observer-util
+
+app.$data.first // x
+app.$data.first = 'y'
+
+app.$data.first // y
+app.first // y
+
+app.$data.expando = 'xy'
+app.expando // xy
 ```
 
 插值
@@ -46,9 +67,10 @@ new Evo({
 - mounted       // 界面初始渲染时调用，此时 dom 未生成
 - beforeUpdate  // 界面更新前
 - updated       // 界面更新后
-- destroy       // 组件销毁时
+- destroy       // 实例销毁时
 ```
 *用法：*
+
 ```js
 new Evo({
   created(){
