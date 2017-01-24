@@ -4,13 +4,12 @@ let config = {
     entry: './src/evo.js',
     output: {
         path: './dist',
-        libraryTarget : 'this'
+        libraryTarget: 'this'
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                exclude: [/node_modules/],
                 loader: 'babel-loader',
                 options: {
                     presets: [['es2015', { modules: false }], 'stage-1']

@@ -2,7 +2,7 @@
   "name": "evo",
   "version": "1.0.0",
   "description": "Reactive, component-oriented view layer for modern web interfaces.",
-  "main": "index.js",
+  "main": "dist/evo.min.js",
   "repository": "https://github.com/ygm125/evo.git",
   "author": "guangming.ygm",
   "license": "MIT",
@@ -19,6 +19,6 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-1": "^6.16.0",
-    "webpack": "^2.2.0-rc.2"
+    "webpack": "^2.2.0"
   }
 }
