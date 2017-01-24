@@ -2138,7 +2138,7 @@ function genIf(el) {
 
 function genIfConditions(conditions) {
     if (!conditions.length) {
-        return '';
+        return "''";
     }
 
     var condition = conditions.shift();
