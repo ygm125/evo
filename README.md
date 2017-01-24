@@ -36,7 +36,6 @@ app.$data.first // y
 app.first // y
 
 app.$data.expando = 'xy'
-app.expando // xy
 ```
 
 插值
