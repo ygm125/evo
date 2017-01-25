@@ -21,10 +21,21 @@
     <script>
 
         var Child = {
-            data: {
-                text: 'component'
+            data(){
+                return {
+                    text: 'component'
+                }
             },
-            template: '<div>A custom {{text}} {{message}}!</div>'
+            template: `<div>
+                            A custom {{text}} {{message}}!
+                                =>> <a @click="changeText">change</a>
+                        </div>`
+            ,
+            methods : {
+                changeText(){
+                    this.text = 'changed~'
+                }
+            }
         }
 
         var app = new Evo({
