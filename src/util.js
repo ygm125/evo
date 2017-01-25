@@ -22,6 +22,15 @@ export function isObject(obj) {
     return obj !== null && typeof obj === 'object'
 }
 
+export function isFunction(obj) {
+    return typeof obj === 'function'
+}
+
+const _toString = Object.prototype.toString
+export function isPlainObject(obj) {
+    return _toString.call(obj) === '[object Object]'
+}
+
 export function query(el) {
     if (typeof el === 'string') {
         const selector = el
@@ -85,7 +94,7 @@ export function resolveAsset(options, type, id) {
         return
     }
     let assets = options[type]
-    if(!assets){
+    if (!assets) {
         return
     }
     // check local registration variations first

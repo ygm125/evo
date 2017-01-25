@@ -2,7 +2,7 @@ import observer from '@nx-js/observer-util'
 import { compileToFunctions } from './parser'
 import { h, VNode, patch, createElement } from './vdom'
 import {
-    bind, noop, warn, query, getOuterHTML, idToTemplate, toString, isObject, resolveAsset
+    bind, noop, warn, query, getOuterHTML, idToTemplate, toString, isObject, isFunction, resolveAsset
 } from './util'
 
 export class Evo {
@@ -98,6 +98,7 @@ export class Evo {
     }
 
     _createComponent(Ctor, data, children, sel) {
+        Ctor = mergeOptions(Ctor)
         Ctor._isComponent = true
         let Factory = this.constructor
         let parentData = this.$data
@@ -236,4 +237,13 @@ function initMethods(vm, methods) {
     for (const key in methods) {
         vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
     }
+}
+
+function mergeOptions(options) {
+    let opt = Object.assign({}, options)
+    let data = opt.data
+    if (isFunction(data)) {
+        opt.data = data()
+    }
+    return opt
 }

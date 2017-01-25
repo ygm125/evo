@@ -75,10 +75,12 @@
 /* harmony export (immutable) */ __webpack_exports__["i"] = noop;
 /* harmony export (immutable) */ __webpack_exports__["e"] = warn;
 /* harmony export (immutable) */ __webpack_exports__["h"] = isObject;
+/* harmony export (immutable) */ __webpack_exports__["j"] = isFunction;
+/* unused harmony export isPlainObject */
 /* harmony export (immutable) */ __webpack_exports__["b"] = query;
 /* harmony export (immutable) */ __webpack_exports__["d"] = getOuterHTML;
-/* harmony export (immutable) */ __webpack_exports__["k"] = cached;
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return camelize; });
+/* harmony export (immutable) */ __webpack_exports__["l"] = cached;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return camelize; });
 /* unused harmony export capitalize */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return idToTemplate; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = toString;
@@ -104,6 +106,15 @@ function warn(msg) {
 
 function isObject(obj) {
     return obj !== null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object';
+}
+
+function isFunction(obj) {
+    return typeof obj === 'function';
+}
+
+var _toString = Object.prototype.toString;
+function isPlainObject(obj) {
+    return _toString.call(obj) === '[object Object]';
 }
 
 function query(el) {
@@ -583,11 +594,11 @@ function processAttrs(el) {
                 if (modifiers) {
                     if (modifiers.prop) {
                         isProp = true;
-                        name = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util__["j" /* camelize */])(name);
+                        name = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util__["k" /* camelize */])(name);
                         if (name === 'innerHtml') name = 'innerHTML';
                     }
                     if (modifiers.camel) {
-                        name = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util__["j" /* camelize */])(name);
+                        name = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util__["k" /* camelize */])(name);
                     }
                 }
                 if (isProp) {
@@ -2435,7 +2446,7 @@ function HTMLParser(html, handler) {
 var defaultTagRE = /\{\{((?:.|\n)+?)\}\}/g;
 var regexEscapeRE = /[-.*+?^${}()|[\]/\\]/g;
 
-var buildRegex = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["k" /* cached */])(function (delimiters) {
+var buildRegex = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__util__["l" /* cached */])(function (delimiters) {
     var open = delimiters[0].replace(regexEscapeRE, '\\$&');
     var close = delimiters[1].replace(regexEscapeRE, '\\$&');
     return new RegExp(open + '((?:.|\\n)+?)' + close, 'g');
@@ -2594,6 +2605,7 @@ var Evo = function () {
     }, {
         key: '_createComponent',
         value: function _createComponent(Ctor, data, children, sel) {
+            Ctor = mergeOptions(Ctor);
             Ctor._isComponent = true;
             var Factory = this.constructor;
             var parentData = this.$data;
@@ -2745,6 +2757,15 @@ function initMethods(vm, methods) {
     for (var key in methods) {
         vm[key] = methods[key] == null ? __WEBPACK_IMPORTED_MODULE_3__util__["i" /* noop */] : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util__["f" /* bind */])(methods[key], vm);
     }
+}
+
+function mergeOptions(options) {
+    var opt = Object.assign({}, options);
+    var data = opt.data;
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util__["j" /* isFunction */])(data)) {
+        opt.data = data();
+    }
+    return opt;
 }
 
 /***/ })

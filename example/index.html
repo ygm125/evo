@@ -12,6 +12,7 @@
         <a v-for="(item,index) in list" @click="popMsg(item.text)">{{index}}、{{item.text}}</a>
 
         <my-component :message="message"></my-component>
+        <my-component :message="message"></my-component>
 
         <div v-if="first">first</div>
         <div v-else>not</div>
