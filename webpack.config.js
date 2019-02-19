@@ -1,10 +1,10 @@
 const webpack = require('webpack')
+const path = require('path')
 
 let config = {
     entry: './src/evo.js',
     output: {
-        path: './dist',
-        libraryTarget: 'this'
+        path: path.resolve(__dirname,'./dist')
     },
     module: {
         rules: [
@@ -23,7 +23,7 @@ let config = {
 let NODE_ENV = process.env.NODE_ENV
 
 if (NODE_ENV === 'development') {
-    config.watch = true
+    //config.watch = true
     config.output.filename = 'evo.js'
 
 } else if (NODE_ENV === 'production') {
