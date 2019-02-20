@@ -59,7 +59,8 @@ export default class Evo {
             })
         }
 
-        if (!this._vnode) {
+        //FIXME: 在Vue 源码中此处对应的是 vm.$vnode == null 的判断,然而 Vue 和 Evo 毕竟有些不同,Vue 对 vm.$vnode 和 vm._vnode 做了不同的处理,而 Evo 中仅有 this._vnode 这一个. 所以在此设置条件为真来让 mounted 钩子成功触发
+        if (true || !this._vnode) {
             this._isMounted = true
             callHook(this, 'mounted')
         }
