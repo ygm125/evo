@@ -9,8 +9,8 @@ import eventlisteners from 'snabbdom/modules/eventlisteners'
 export const patch = snabbdom.init([klass, props, attrs, style, eventlisteners])
 
 import HTMLDOMAPI from 'snabbdom/htmldomapi'
+console.log('HTMLDOMAPI',HTMLDOMAPI)
 export const createElement = HTMLDOMAPI.createElement
 
 export { h } from 'snabbdom'
-import * as VNode from 'snabbdom/vnode'
-export { VNode }
+export { vnode as VNode } from 'snabbdom/vnode'
