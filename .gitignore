@@ -2,3 +2,5 @@
 node_modules
 *.lock
 /dist/
+package-lock.json
+yarn-error.log

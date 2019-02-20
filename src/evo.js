@@ -1,15 +1,18 @@
-import observer from '@nx-js/observer-util'
+import { observable,observe } from '@nx-js/observer-util'
 import { compileToFunctions } from './parser'
 import { h, VNode, patch, createElement } from './vdom'
 import {
     bind, noop, warn, query, getOuterHTML, idToTemplate, toString, isObject, isFunction, resolveAsset
 } from './util'
 
-export class Evo {
+export default class Evo {
     constructor(options) {
 
-        this.$options = options
+        this._patch = patch
+        this._s = toString
 
+        this.$options = options
+        
         callHook(this, 'beforeCreate')
 
         if (options.data) {
@@ -51,7 +54,7 @@ export class Evo {
         callHook(this, 'beforeMount')
 
         if (!options._isComponent) {
-            observer.observe(() => {
+            observe(() => {
                 this._update(this._render())
             })
         }
@@ -118,7 +121,7 @@ export class Evo {
                 })
             }
 
-            observer.observe(() => {
+            observe(() => {
                 componentVm.$forceUpdate()
             })
 
@@ -129,8 +132,7 @@ export class Evo {
         return Ctor._vnode
     }
 
-    _patch = patch
-    _s = toString
+    
 
     _k(eventKeyCode, key, builtInAlias) {
         const keyCodes = builtInAlias
@@ -211,7 +213,7 @@ function callHook(vm, hook) {
 }
 
 function initData(vm, data) {
-    vm.$data = observer.observable(data)
+    vm.$data = observable(data)
 
     const keys = Object.keys(data)
     let i = keys.length
