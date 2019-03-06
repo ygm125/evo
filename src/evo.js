@@ -158,6 +158,8 @@ export default class Evo {
             data.hook.destroy = bind(this.$options.destroy, this)
         }
 
+        //如果 children 是一个二维数组,则尝试把该2维数组序列化为1维数组
+        //FIXME: 暂时不明白此处序列化的意义
         if (Array.isArray(children)) {
             let faltChildren = []
 

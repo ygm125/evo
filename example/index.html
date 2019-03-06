@@ -7,15 +7,7 @@
 
 <body>
     <div id="app">
-        <div :message="message">{{ message }}</div>
-
-        <a v-for="(item,index) in list" @click="popMsg(item.text)">{{index}}、{{item.text}}</a>
-
         <my-component :message="message"></my-component>
-        <my-component :message="message"></my-component>
-
-        <div v-if="first">first</div>
-        <div v-else>not</div>
     </div>
     <script src="../dist/evo.js"></script>
     <script>
@@ -40,9 +32,9 @@
         var hooks = ['beforeCreate', 'created', 'beforeMount', 'mounted', 'beforeUpdate', 'updated', 'destroy'].reduce((t, x) => { t[x] = () => console.log(x); return t }, {})
 
         var app = new Evo(Object.assign({
-            // components: {
-            //     'my-component': Child
-            // },
+            components: {
+                'my-component': Child
+            },
             el: "#app",
             data: {
                 first: true,
