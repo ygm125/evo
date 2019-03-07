@@ -2,28 +2,44 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Evo Demo</title>
+    <style>
+    .red{color:#db09096e}
+    .blue{color:#0b0b7080}
+    .yellow{color:#97a104f3}
+    </style>
 </head>
 
 <body>
-    <div id="app"><my-component :message="message"></my-component>
+    <div id="app">
+        <my-component :message="message"></my-component>
+        <hr>
+        <button @click="add">add</button>
+        <button @click="clear">clear</button>
+        <h2>evo list:</h2>
+        <ul>
+            <li v-for="i in list" :key="i">
+                {{ i.text }}
+            </li>
+        </ul>
     </div>
     <script src="../dist/evo.js"></script>
     <script>
 
         var Child = {
-            props:['message'],
-            data(){
+            props: ['message'],
+            data() {
                 return {
-                    text: 'component',
-                    count:0
+                    text: 'I am a component',
+                    count: 0,
+                    color:'red'
                 }
             },
-            template: `<section><span>A custom {{text}} {{message}}!</span><a href="#" @click="changeText">change</a></section>`
+            template: `<section><span :class="color"> {{message}} {{text}}!</span><a href="#" @click="changeColor">changeColor</a></section>`
             ,
-            methods : {
-                changeText(){
-                    this.text = 'changed:' + this.count++
+            methods: {
+                changeColor() {
+                    this.color = ['red','blue','yellow'][(Math.random()*3)|0]
                 }
             }
         }
@@ -35,17 +51,19 @@
             },
             el: "#app",
             data: {
-                first: true,
-                message: "Hello Evo!",
+                message: "Hello! My constructor is Evo. And",
                 list: [{
-                    text: "Im one"
+                    text: "I'm one"
                 }, {
-                    text: "Im two"
+                    text: "I'm two"
                 }]
             },
             methods: {
-                popMsg(msg) {
-                    alert(msg)
+                add(){
+                    this.list.push({ text: "I'm new !"})
+                },
+                clear(){
+                    this.list = []
                 }
             }
         }, hooks))
