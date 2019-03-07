@@ -6,26 +6,24 @@
 </head>
 
 <body>
-    <div id="app">
-        <my-component :message="message"></my-component>
+    <div id="app"><my-component :message="message"></my-component>
     </div>
     <script src="../dist/evo.js"></script>
     <script>
 
         var Child = {
+            props:['message'],
             data(){
                 return {
-                    text: 'component'
+                    text: 'component',
+                    count:0
                 }
             },
-            template: `<div>
-                            A custom {{text}} {{message}}!
-                                =>> <a @click="changeText">change</a>
-                        </div>`
+            template: `<section><span>A custom {{text}} {{message}}!</span><a href="#" @click="changeText">change</a></section>`
             ,
             methods : {
                 changeText(){
-                    this.text = 'changed~'
+                    this.text = 'changed:' + this.count++
                 }
             }
         }

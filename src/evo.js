@@ -1,6 +1,6 @@
 import { observable,observe } from '@nx-js/observer-util'
 import { compileToFunctions } from './parser'
-import { h, VNode, patch, createElement } from './vdom'
+import { h, VNode, patch } from './vdom'
 import {
     bind, noop, warn, query, getOuterHTML, idToTemplate, toString, isObject, isFunction, resolveAsset
 } from './util'
@@ -101,6 +101,9 @@ export default class Evo {
         }
     }
 
+    /**
+     * 创建组件, 调用的入口在createElm函数的 isDef(i = i.init); i(vnode)处
+     */
     _createComponent(Ctor, data, children, sel) {
         Ctor = mergeOptions(Ctor)
         Ctor._isComponent = true
@@ -128,8 +131,8 @@ export default class Evo {
 
             vnode._component = componentVm
         }
-
-        Ctor._vnode = new VNode(`vue-component-${sel}`, data, [], undefined, createElement(sel))
+        //修改这一行后, 可以让 vnode._component._vnode.elm 得到正确渲染的 dom 了.
+        Ctor._vnode = new VNode(`vue-component-${sel}`, data, [], undefined, document.querySelector(sel))
         return Ctor._vnode
     }
 
