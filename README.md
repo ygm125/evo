@@ -1,10 +1,9 @@
 # Evo
 
-一个小型的、类 Vue 的 MVVM 框架，由于响应数据采用 Proxy，兼容性如下
-
-![](https://gmiam.com/static/upload/201701/gIPAUQXBqyRRk8UgLxuWgKSi.png)
-
+一个小型的、类 Vue 的 MVVM 框架，由于响应数据采用 Proxy，只兼容现代浏览器
 ## [在线 demo](https://jsfiddle.net/lxx2013/bo840n13/)
+![https://i.loli.net/2019/03/07/5c812b6f31c74.gif](https://i.loli.net/2019/03/07/5c812b6f31c74.gif
+)
 
 ## 项目运行的方法
 ```bash
