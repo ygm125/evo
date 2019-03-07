@@ -1,5 +1,4 @@
-import * as snabbdom from 'snabbdom'
-
+import * as snabbdom from './snabbdom'
 import klass from 'snabbdom/modules/class'
 import props from 'snabbdom/modules/props'
 import attrs from 'snabbdom/modules/attributes'
