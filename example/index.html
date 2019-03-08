@@ -2,65 +2,71 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Evo Demo</title>
+    <style>
+    .red{color:#db09096e}
+    .blue{color:#0b0b7080}
+    .yellow{color:#97a104f3}
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <div :message="message">{{ message }}</div>
-
-        <a v-for="(item,index) in list" @click="popMsg(item.text)">{{index}}、{{item.text}}</a>
-
         <my-component :message="message"></my-component>
-        <my-component :message="message"></my-component>
-
-        <div v-if="first">first</div>
-        <div v-else>not</div>
+        <hr>
+        <button @click="add">add</button>
+        <button @click="clear">clear</button>
+        <h2>evo list:</h2>
+        <ul>
+            <li v-for="i in list" :key="i">
+                {{ i.text }}
+            </li>
+        </ul>
     </div>
     <script src="../dist/evo.js"></script>
     <script>
 
         var Child = {
-            data(){
+            props: ['message'],
+            data() {
                 return {
-                    text: 'component'
+                    text: 'I am a component',
+                    count: 0,
+                    color:'red'
                 }
             },
-            template: `<div>
-                            A custom {{text}} {{message}}!
-                                =>> <a @click="changeText">change</a>
-                        </div>`
+            template: `<section><span :class="color"> {{message}} {{text}}!</span><a href="#" @click="changeColor">changeColor</a></section>`
             ,
-            methods : {
-                changeText(){
-                    this.text = 'changed~'
+            methods: {
+                changeColor() {
+                    this.color = ['red','blue','yellow'][(Math.random()*3)|0]
                 }
             }
         }
+        var hooks = ['beforeCreate', 'created', 'beforeMount', 'mounted', 'beforeUpdate', 'updated', 'destroy'].reduce((t, x) => { t[x] = () => console.log(x); return t }, {})
 
-        var app = new Evo({
+        var app = new Evo(Object.assign({
             components: {
                 'my-component': Child
             },
-            beforeCreate: function () {
-                console.log('before')
-            },
             el: "#app",
             data: {
-                first: true,
-                message: "Hello Evo!",
+                message: "Hello! My constructor is Evo. And",
                 list: [{
-                    text: "Im one"
+                    text: "I'm one"
                 }, {
-                    text: "Im two"
+                    text: "I'm two"
                 }]
             },
             methods: {
-                popMsg(msg) {
-                    alert(msg)
+                add(){
+                    this.list.push({ text: "I'm new !"})
+                },
+                clear(){
+                    this.list = []
                 }
             }
-        })
+        }, hooks))
     </script>
 </body>
 

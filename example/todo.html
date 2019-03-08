@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+    background: #20262E;
+    padding: 20px;
+    font-family: Helvetica;
+    }
+
+    #app {
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    transition: all 0.2s;
+    }
+
+    li {
+    margin: 8px 0;
+    }
+
+    h2 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    }
+
+    del {
+    color: rgba(0, 0, 0, 0.3);
+    }</style>
+</head>
+
+<body>
+    <div id="app">
+        <span>这个 demo 展示了Evo列表渲染和计算嵌套数据的能力, 但可以发现它不支持 v-model 的双向绑定</span>
+        <h2>Evo Todos:</h2>
+        <input type="text" v-model="message"><button @click="add">add</button>
+        <ol>
+            <li v-for="todo in todos">
+                <label>
+                    <input type="checkbox" v-on:change="toggle(todo)" v-bind:checked="todo.done">
+                    <del v-if="todo.done">
+                        {{ todo.text }}
+                    </del>
+                    <span v-else>
+                        {{ todo.text }}
+                    </span>
+                </label>
+            </li>
+        </ol>
+    </div>
+</body>
+<script src="../dist/evo.js"></script>
+<script>
+        new Evo({
+            el: "#app",
+            data: {
+                message: ' input ',
+                todos: [
+                    { text: "Learn JavaScript", done: false },
+                    { text: "Learn Vue", done: false },
+                    { text: "Play around in JSFiddle", done: true },
+                    { text: "Build something awesome", done: true }
+                ]
+            },
+            methods: {
+                toggle: function (todo) {
+                    todo.done = !todo.done
+                },
+                add() {
+                    this.todos.push({ text: this.message, done: false })
+                    this.message = String.fromCharCode((Math.random() * 57 + 65) | 0)
+                }
+            }
+        })
+</script>
+</html>

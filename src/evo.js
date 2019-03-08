@@ -1,15 +1,18 @@
-import observer from '@nx-js/observer-util'
+import { observable,observe } from '@nx-js/observer-util'
 import { compileToFunctions } from './parser'
-import { h, VNode, patch, createElement } from './vdom'
+import { h, VNode, patch } from './vdom'
 import {
     bind, noop, warn, query, getOuterHTML, idToTemplate, toString, isObject, isFunction, resolveAsset
 } from './util'
 
-export class Evo {
+export default class Evo {
     constructor(options) {
 
-        this.$options = options
+        this._patch = patch
+        this._s = toString
 
+        this.$options = options
+        
         callHook(this, 'beforeCreate')
 
         if (options.data) {
@@ -51,12 +54,13 @@ export class Evo {
         callHook(this, 'beforeMount')
 
         if (!options._isComponent) {
-            observer.observe(() => {
+            observe(() => {
                 this._update(this._render())
             })
         }
 
-        if (!this._vnode) {
+        //FIXME: 在Vue 源码中此处对应的是 vm.$vnode == null 的判断,然而 Vue 和 Evo 毕竟有些不同,Vue 对 vm.$vnode 和 vm._vnode 做了不同的处理,而 Evo 中仅有 this._vnode 这一个. 所以在此设置条件为真来让 mounted 钩子成功触发
+        if (true || !this._vnode) {
             this._isMounted = true
             callHook(this, 'mounted')
         }
@@ -97,6 +101,9 @@ export class Evo {
         }
     }
 
+    /**
+     * 创建组件, 调用的入口在createElm函数的 isDef(i = i.init); i(vnode)处
+     */
     _createComponent(Ctor, data, children, sel) {
         Ctor = mergeOptions(Ctor)
         Ctor._isComponent = true
@@ -118,19 +125,18 @@ export class Evo {
                 })
             }
 
-            observer.observe(() => {
+            observe(() => {
                 componentVm.$forceUpdate()
             })
 
             vnode._component = componentVm
         }
-
-        Ctor._vnode = new VNode(`vue-component-${sel}`, data, [], undefined, createElement(sel))
+        //修改这一行后, 可以让 vnode._component._vnode.elm 得到正确渲染的 dom 了.
+        Ctor._vnode = new VNode(`vue-component-${sel}`, data, [], undefined, document.querySelector(sel))
         return Ctor._vnode
     }
 
-    _patch = patch
-    _s = toString
+    
 
     _k(eventKeyCode, key, builtInAlias) {
         const keyCodes = builtInAlias
@@ -155,6 +161,8 @@ export class Evo {
             data.hook.destroy = bind(this.$options.destroy, this)
         }
 
+        //如果 children 是一个二维数组,则尝试把该2维数组序列化为1维数组
+        //FIXME: 暂时不明白此处序列化的意义
         if (Array.isArray(children)) {
             let faltChildren = []
 
@@ -211,7 +219,7 @@ function callHook(vm, hook) {
 }
 
 function initData(vm, data) {
-    vm.$data = observer.observable(data)
+    vm.$data = observable(data)
 
     const keys = Object.keys(data)
     let i = keys.length

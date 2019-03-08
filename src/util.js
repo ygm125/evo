@@ -62,10 +62,20 @@ export function cached(fn) {
 }
 
 const camelizeRE = /-(\w)/g
+/**
+ * @breif 短横线转驼峰
+ * @description 输入一个字符串,将所有紧跟着'-'的第一个字符转为大写.附带了cached 来存储
+ * @param {string} str - 输入短横线分割的字符串, 例如 my-com-name
+ * @returns 返回myComName
+ */
 export const camelize = cached((str) => {
     return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : '')
 })
-
+ 
+/**
+ * 将输入的字符串首字母大写后返回
+ * 例如输入 myComonent,返回 MyComponent
+ */
 export const capitalize = cached((str) => {
     return str.charAt(0).toUpperCase() + str.slice(1)
 })
@@ -88,6 +98,10 @@ export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key)
 }
 
+/**
+ * 根据输入的 id 来在 $options 中查找组件,依次查找原名,普通驼峰命名,首字母大写驼峰命名
+ * @description 例如输入my-com,则依次查找['my-com','myCom','MyCom']
+ */
 export function resolveAsset(options, type, id) {
     /* istanbul ignore if */
     if (typeof id !== 'string') {
